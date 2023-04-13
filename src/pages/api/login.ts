@@ -13,15 +13,13 @@ export default async function handler(
     await dbConnect();
     switch (req.method) {
       case "GET":
-
         const nicknameToSignIn = authenticate(req, res);
         if (!nicknameToSignIn) {
           res.status(401).send({message:'Bad token'});
           return;
         }
-        
-        const signedInUser = await userModel.findOne({nicknameToSignIn});
-
+        const signedInUser = await userModel.findOne({nickname: nicknameToSignIn});
+        console.log(signedInUser);
         if (!signedInUser) {
           throw new Error(
             "No user with this email, but you exist and this is beautiful"
