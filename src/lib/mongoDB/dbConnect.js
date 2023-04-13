@@ -1,0 +1,42 @@
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false); // prepare for mongoose update
+
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
+// mongoose.connect(mongoURI);
+
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  console.log('Connecting to MongoDB...');
+  if (cached.conn) {
+    console.log('Connected to mongoDB');
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      bufferCommands: false,
+    }
+    cached.promise = mongoose.connect(mongoURI, opts).then((mongoose) => {
+
+      console.log('Connected to mongoDB');
+      return mongoose;
+    });
+  }
+  cached.conn = await cached.promise;
+  console.log('Connected to mongoDB');
+  return cached.conn;
+}
+
+export default dbConnect;
