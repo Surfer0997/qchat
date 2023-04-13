@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import { Menu } from '@/components/Menu';
 import DialogueList from '@/components/DialogueList';
 import ChatInput from '@/components/ChatInput';
+import MyChatBubble from '@/components/MyChatBubble';
+import ChatBubble from '@/components/ChatBubble';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +28,21 @@ export default function Home() {
           <div className="chat-main bg-fuchsia-600 h-full flex flex-col items-center">
             {/* костьіль */}
             <section className="chat-bubbles w-2/3 bg-green-400 mb-2" style={{ height: '88%' }}>
-              <div></div>
+              <div className="h-full bg-violet-400 overflow-y-auto pt-4" style={{ width: 'calc(100% - 52px)' }}>
+                <ChatBubble
+                  text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus architecto modi vitae laboriosam
+                  aspernatur quaerat. Nam, reprehenderit placeat facilis ullam obcaecati, sunt hic assumenda dolorem
+                  sint cumque quibusdam eveniet repellat doloribus nemo dolor blanditiis labore repudiandae? Eligendi
+                  obcaecati numquam quis optio non, deserunt molestiae qui aliquam unde nihil accusantium perspiciatis.
+                "
+                />
+                <MyChatBubble
+                  text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus architecto modi vitae laboriosam
+                  aspernatur quaerat. Nam, reprehenderit placeat facilis ullam obcaecati, sunt hic assumenda dolorem
+                  sint cumque quibusdam eveniet repellat doloribus nemo dolor blanditiis labore repudiandae? Eligendi
+                  obcaecati numquam quis optio non, deserunt molestiae qui aliquam unde nihil accusantium perspiciatis."
+                />
+              </div>
             </section>
 
             <ChatInput />
