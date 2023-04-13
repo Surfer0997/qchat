@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import { Menu } from "@/components/Menu";
-import DialogueList from "@/components/DialogueList";
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+import { Menu } from '@/components/Menu';
+import DialogueList from '@/components/DialogueList';
+import PaperPlane from '../../public/paper-plane-svgrepo-com.svg';
 
-
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
@@ -18,22 +18,31 @@ export default function Home() {
       </Head>
       <main className="flex">
         <div className="w-4/12 bg-amber-500 h-screen">
-          <Menu/>
-          <DialogueList/>
+          <Menu />
+          <DialogueList />
         </div>
 
         <div className="w-8/12  h-screen flex flex-col">
           <div className="chat-header bg-neutral-400 h-16"></div>
           <div className="chat-main bg-fuchsia-600 h-full flex flex-col items-center">
-          {/* костьіль */}
-            <div className="chat-bubbles w-2/3 bg-green-400" style={{height:'88%'}}></div> 
-            <div className="chat-input w-2/3 flex justify-end">
-              {/* <input type="text" className="w-full" style={{overflowY:'visible'}}/> */}
-              <div className="w-full h-full min-h-fit bg-white mt-2 rounded-lg flex justify-center">
-                <div className="w-5/6 h-auto bg-neutral-700 inline-block outline-none" contentEditable="true"></div>
+            {/* костьіль */}
+            <section className="chat-bubbles w-2/3 bg-green-400 mb-2" style={{ height: '88%' }}>
+              <div></div>
+            </section>
+
+            <section className="chat-input w-2/3 flex justify-end mb-2 items-center">
+              <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center">
+                <div
+                  className="h-auto inline-block outline-none"
+                  style={{ width: '90%', minHeight: '48px' }}
+                  contentEditable="true"
+                ></div>
               </div>
-              <button>Go</button>
-            </div>
+
+              <button className="rounded-full bg-cyan-500 h-12 w-12 p-2 ml-2 flex justify-center items-center">
+                <Image src={PaperPlane} width={32} height={32} alt="Send message" className='mr-1'></Image>
+              </button>
+            </section>
           </div>
         </div>
       </main>
