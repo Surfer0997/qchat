@@ -23,12 +23,13 @@ export default function Home() {
           <DialogueList />
         </div>
 
-        <div className="w-8/12  h-screen flex flex-col">
-          <div className="chat-header bg-neutral-400 h-16"></div>
+        <div className="w-8/12 flex flex-col h-screen">
+          <div className="chat-header bg-neutral-400 h-16 w-full"></div>
           <div className="chat-main bg-fuchsia-600 h-full flex flex-col items-center">
-            {/* костьіль */}
-            <section className="chat-bubbles w-2/3 bg-green-400 mb-2" style={{ height: '88%' }}>
-              <ChatBubblesContainer messages={MOCK_MESSAGES}/>
+            <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600">
+              <div className="chat-bubbles w-2/3 mb-2 h-full">
+                <ChatBubblesContainer messages={MOCK_MESSAGES} />
+              </div>
             </section>
 
             <ChatInput />
