@@ -19,7 +19,6 @@ export default async function handler(
           return;
         }
         const signedInUser = await userModel.findOne({nickname: nicknameToSignIn});
-        console.log(signedInUser);
         if (!signedInUser) {
           throw new Error(
             "No user with this email, but you exist and this is beautiful"
@@ -29,7 +28,6 @@ export default async function handler(
         res.status(200).json(signedInUser);
         break;
       case "POST":
-        console.log('POST LOGIN');
         // const { nickname, password } = JSON.parse(req.body);
         const { nickname, password } = req.body;
         const user = await userModel.findOne({ nickname });

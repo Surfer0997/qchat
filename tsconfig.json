@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/PreventExtraSignIn.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/PreventExtraSignIn.js", "src/lib/mongoDB/dbConnect.js"],
   "exclude": ["node_modules"]
 }
