@@ -10,12 +10,11 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async ({ nickname, password }: RegisterUserProps, { dispatch }) => {
     try {
-      const request = await axios.post(`/api/register`, { nickname, password });
+      const request = await axios.post(`/api/auth/register`, { nickname, password });
       dispatch(successGlobal("Account successfully created"));
-      console.log("THUNK REQUEST", request);
       return { data: request.data, auth: true };
     } catch (error: any) {
-      console.log(error.response.data.message);
+
       dispatch(errorGlobal("Error while registering new account"));
       throw error;
     }
@@ -26,11 +25,10 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async ({ nickname, password }: RegisterUserProps, { dispatch }) => {
     try {
-      const request = await axios.post(`/api/login`, { nickname, password });
+      const request = await axios.post(`/api/auth/login`, { nickname, password });
       dispatch(successGlobal("Logged in successfully!"));
       return { data: request.data, auth: true };
     } catch (error: any) {
-      console.log(error.response.data.message);
       dispatch(errorGlobal("Error while logging in new account"));
       throw error;
     }
@@ -46,7 +44,7 @@ export const getAuthHeader = () => {
 
 export const isAuth = createAsyncThunk('users/isAuth', async (_, {dispatch}) => {
   try {
-    const request = await axios.get('/api/login', getAuthHeader());
+    const request = await axios.get('/api/auth/login', getAuthHeader());
     dispatch(successGlobal('Logged in successfully!'));
     return { data: request.data, auth: true }; // user
   } catch (error) {

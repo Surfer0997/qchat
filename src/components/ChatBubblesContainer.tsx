@@ -14,7 +14,6 @@ interface ChatBubblesContainerProps {
 
 const ChatBubblesContainer = (props: ChatBubblesContainerProps) => {
   const user = useSelector((state: RootState) => state.user);
-    console.log(user.data._id);
   return (
     <div className="bg-violet-400 py-2" style={{ width: 'calc(100% - 52px)',}}>
       {props.messages.map(message =>

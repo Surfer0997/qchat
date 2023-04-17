@@ -2,7 +2,7 @@
 import userModel from "@/models/user.model";
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "@/lib/mongoDB/dbConnect";
-import userService from '../../services/user.service'
+import userService from '../../../services/user.service'
 
 export default async function handler(
   req: NextApiRequest,

@@ -27,7 +27,6 @@ function useWindowSize() {
 
 const DialogueItem = (props: DialogueItemProps) => {
   const [windowWidth, windowHeight] = useWindowSize();
-  console.log(windowWidth / 10);
   return (
     <div className="bg-white h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center">
       <Image
