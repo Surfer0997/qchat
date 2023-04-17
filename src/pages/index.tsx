@@ -4,6 +4,7 @@ import { Menu } from '@/components/Menu';
 import DialogueList from '@/components/DialogueList';
 import ChatInput from '@/components/ChatInput';
 import ChatBubblesContainer from '@/components/ChatBubblesContainer';
+
 const MOCK_MESSAGES = require('../../public/MOCK_DATA.json');
 const MOCK_DIALOGUES = [
   {_id:'asdsadasdasd', name:'Troy', messages: [{
@@ -41,9 +42,9 @@ export default function Home() {
           <DialogueList dialogues={MOCK_DIALOGUES}/>
         </div>
 
-        <div className="w-8/12 flex flex-col h-screen">
-          <div className="chat-header bg-neutral-400 h-16 w-full"></div>
-          <div className="chat-main bg-fuchsia-600 h-full flex flex-col items-center">
+        <div className="w-8/12 flex flex-col h-screen relative">
+          <div className="chat-header bg-neutral-400 h-12 w-full absolute"></div>
+          <div className="chat-main bg-fuchsia-600 flex flex-col items-center" style={{height:'calc(100% - 3rem)', marginTop: '3rem'}}>
             <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600">
               <div className="chat-bubbles w-2/3 mb-2 h-full">
                 <ChatBubblesContainer messages={MOCK_MESSAGES} />
