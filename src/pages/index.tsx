@@ -4,6 +4,7 @@ import { Menu } from '@/components/Menu';
 import DialogueList from '@/components/DialogueList';
 import ChatInput from '@/components/ChatInput';
 import ChatBubblesContainer from '@/components/ChatBubblesContainer';
+import ChatHeader from '@/components/ChatHeader';
 
 const MOCK_MESSAGES = require('../../public/MOCK_DATA.json');
 const MOCK_DIALOGUES = [
@@ -43,7 +44,7 @@ export default function Home() {
         </div>
 
         <div className="w-8/12 flex flex-col h-screen relative">
-          <div className="chat-header bg-neutral-400 h-12 w-full absolute"></div>
+          <ChatHeader/>
           <div className="chat-main bg-fuchsia-600 flex flex-col items-center" style={{height:'calc(100% - 3rem)', marginTop: '3rem'}}>
             <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600">
               <div className="chat-bubbles w-2/3 mb-2 h-full">

@@ -6,8 +6,8 @@ const ChatInput = () => {
     <section className="chat-input w-2/3 flex justify-end mb-2 items-center">
       <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center">
         <div
-          className="h-auto inline-block outline-none "
-          style={{ width: '90%', minHeight: '48px' }}
+          className="h-auto inline-block outline-none bg-purple-400 overflow-hidden"
+          style={{ width: '90%', minHeight: '48px', maxHeight: '24rem' }}
           contentEditable="true"
         ></div>
       </div>
