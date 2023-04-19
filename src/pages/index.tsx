@@ -1,16 +1,12 @@
 import Head from 'next/head';
-import ChatInput from '@/components/ChatInput';
-import ChatBubblesContainer from '@/components/ChatBubblesContainer';
-import ChatHeader from '@/components/ChatHeader';
-import Menu from '@/components/Menu';
+import ChatInput from '@/components/ChatWindow/ChatInput';
+import ChatBubblesContainer from '@/components/ChatWindow/ChatBubblesContainer';
+import ChatHeader from '@/components/ChatWindow/ChatHeader';
+import Menu from '@/components/LeftMenu/Menu';
 
 const MOCK_MESSAGES = require('../../public/MOCK_DATA.json');
 
-
 export default function Home() {
-
-
-
   return (
     <>
       <Head>
@@ -20,11 +16,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex">
-        <Menu/>
+        <Menu />
 
         <div className="w-8/12 flex flex-col h-screen relative">
-          <ChatHeader/>
-          <div className="chat-main bg-fuchsia-600 flex flex-col items-center" style={{height:'calc(100% - 3rem)', marginTop: '3rem'}}>
+          <ChatHeader />
+          <div
+            className="chat-main bg-fuchsia-600 flex flex-col items-center"
+            style={{ height: 'calc(100% - 3rem)', marginTop: '3rem' }}
+          >
             <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600">
               <div className="chat-bubbles w-2/3 mb-2 h-full">
                 <ChatBubblesContainer messages={MOCK_MESSAGES} />

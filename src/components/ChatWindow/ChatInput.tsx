@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import PaperPlane from '../../public/paper-plane-svgrepo-com.svg';
+import PaperPlane from '../../../public/paper-plane-svgrepo-com.svg';
 
 const ChatInput = () => {
   return (
