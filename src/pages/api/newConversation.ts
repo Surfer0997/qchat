@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import userModel from '@/models/user.model';
+import conversationModel from '@/models/conversation.model';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/mongoDB/dbConnect';
 
@@ -8,14 +8,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await dbConnect();
 
     switch (req.method) {
-      case 'POST': // route to get users from search
-      const { searchString } = req.body;
-        const users = await userModel.find({ nickname: { $regex: searchString, $options: 'i' } }); // 'i' option == case insensitive
-        if (!users) {
-          throw new Error('No users found, try other letters!');
-        }
-        res.status(200).json(users);
-        break;
+      case 'PATCH':
+        const { myId, destId, messages } = req.body;
+
+        const conversation = new conversationModel({
+          members: [myId, destId],
+          messages,
+          date: new Date(),
+        });
+
+        await conversation.save();
+
+        res.status(201).json(conversation);
+        return;
+
       default:
         throw new Error('Bad request');
     }

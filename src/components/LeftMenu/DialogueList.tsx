@@ -1,22 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
 import DialogueItem from "./DialogueItem";
+import { AppDispatch, RootState } from "@/store/store";
+import {useEffect} from 'react';
+import { searchConversationsByUserId } from "@/store/actions/userConversationsThunk";
 
-interface DialogueListPorps {
-  dialogues: {
-    _id: string;
-    name: string;
-    messages: {
-      _id: string;
-      sender: string;
-      text: string;
-      date: Date;
-    }[];
-  }[]
-}
-
-const DialogueList = (props: DialogueListPorps) => {
+const DialogueList = () => {
+  const {conversations, loading} = useSelector((state:RootState)=>state.userConversations);
+  const userId = useSelector((state:RootState)=>state.user.data._id);
+const dispatch = useDispatch<AppDispatch>();
+  useEffect(()=>{
+    if (userId) {
+      dispatch(searchConversationsByUserId({userId}))
+    }
+  }, [dispatch, userId]);
+  
   return (
     <div className="mt-2">
-      {props.dialogues.map((dialogue)=><DialogueItem key={dialogue._id} name={dialogue.name} messages={dialogue.messages}/>)}
+{conversations.map((conversation)=><DialogueItem key={conversation._id} name={conversation.name} messages={conversation.messages}/>)}
     </div>
   );
 };

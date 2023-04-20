@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import conversationModel from '@/models/conversation.model';
+import userModel from '@/models/user.model';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/mongoDB/dbConnect';
 
@@ -8,23 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await dbConnect();
 
     switch (req.method) {
+
       case 'POST':
-        const { myId, destId, messages } = req.body;
-
-        const conversation = new conversationModel({
-          members: [myId, destId],
-          messages,
-          date: new Date(),
-        });
-
-        await conversation.save();
-
-        res.status(201).json(conversation);
-        return;
-
-      case 'GET':
         const { userId } = req.body;
-        const userConversations = await conversationModel.find({ members: userId });
+        const userConversations = await conversationModel.find({ members: userId }).populate('members', '_id nickname', userModel); // MAGIC
         if (!userConversations) {
           throw new Error('No conversations found, or an error occured');
         }

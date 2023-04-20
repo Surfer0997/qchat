@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 import createModel from '../lib/mongoDB/createModel';
 
 interface ConversationInput {
   members: String[];
+  name: string;
   messages: {
     sender: String;
     text: String;
@@ -17,7 +19,9 @@ interface ConversationDocument extends ConversationInput, mongoose.Document {
 
 const conversationSchema = new mongoose.Schema({
   members: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
+    ref:'user',
+    default:'sadasdasd',
     required: true,
   },
   messages: {
@@ -30,11 +34,14 @@ const conversationSchema = new mongoose.Schema({
       ],
       default: []
   },
+  name: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now(),
   },
 });
 
-// @ts-ignore
+
 export default createModel<ConversationDocument>('Conversation', conversationSchema);

@@ -5,7 +5,7 @@ interface ISearchUsersByString {
   searchString: string;
 }
 export const searchUsersByString = createAsyncThunk(
-  "user/registerUser",
+  "otherUsers/searchUsersByString",
   async ( searchString: ISearchUsersByString, { dispatch }) => {
     try {
       const request = await axios.post(`/api/searched-users`, {searchString});
