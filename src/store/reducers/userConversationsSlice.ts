@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { searchConversationsByUserId } from '../actions/userConversationsThunk';
+import { Message } from '@/types/types';
 
 interface UserConversations {
     loading: boolean;
@@ -9,12 +10,7 @@ interface UserConversations {
 export interface Conversation {
   _id: string;
   name: string;
-  messages: {
-    _id: string;
-    sender: string;
-    text: string;
-    date: Date;
-  }[];
+  messages: Message[];
 }
 
 const userConversationsSlice = createSlice({

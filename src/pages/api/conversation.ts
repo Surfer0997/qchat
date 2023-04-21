@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'PATCH':
-        const { targetConversationId, message } = JSON.parse(req.body); // maybe FIX
+        const { targetConversationId, message } = req.body; // maybe FIX
         const targetConversation = await conversationModel.findOneAndUpdate(
           targetConversationId,
           { $push: { messages: message } },

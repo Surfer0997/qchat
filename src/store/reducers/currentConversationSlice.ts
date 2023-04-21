@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Conversation } from "./userConversationsSlice";
-
-export interface CurrentConversation {
-    
-}
+import { sendMessageOnServer } from "../actions/currentConversationThunk";
 
 const currentConversationSlice = createSlice({
     name: 'currentConversation',
-    initialState: {conversation:{} as Conversation},
+    initialState: {conversation: {} as Conversation},
     reducers: {
         setAsCurrentConversation(state, action) {
-            console.log(action.payload);
             state.conversation = action.payload;
+        },
+        sendMessageOnClient(state, action) {
+            state.conversation.messages.push(action.payload)
         }
     },
-
+    extraReducers(builder) {
+        builder.addCase(sendMessageOnServer.fulfilled, (state, action)=>{
+            console.log('EXTRA REDUCER FULLFILLED', action);
+        }) 
+    },
 });
 
-export const {setAsCurrentConversation} = currentConversationSlice.actions;
+export const {setAsCurrentConversation, sendMessageOnClient} = currentConversationSlice.actions;
 export default currentConversationSlice.reducer;
