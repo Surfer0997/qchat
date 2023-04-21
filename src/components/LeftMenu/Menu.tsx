@@ -8,7 +8,7 @@ const Menu = () => {
   const [isSearchEnabled, setSearchEnabled] = useState(false);
 
   return (
-    <div className="w-4/12 bg-amber-500 h-screen">
+    <div className="w-4/12 bg-amber-500 h-screen overflow-auto">
       <MenuHeader handleFocus={setSearchEnabled.bind(null, !isSearchEnabled)} />
       {isSearchEnabled ? <SearchedUsers /> : <DialogueList/>}
     </div>

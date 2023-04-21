@@ -14,6 +14,8 @@ interface ChatBubblesContainerProps {
 
 const ChatBubblesContainer = (props: ChatBubblesContainerProps) => {
   const user = useSelector((state: RootState) => state.user);
+  const currentConversation = useSelector((state:RootState)=>state.currentConversation.conversation);
+  if (!currentConversation.messages) return <p>Please, open conversation to start</p>
   return (
     <div
       className="py-2"
@@ -21,7 +23,7 @@ const ChatBubblesContainer = (props: ChatBubblesContainerProps) => {
         width: 'calc(100% - 52px)',
       }}
     >
-      {props.messages.map(message =>
+      {currentConversation.messages.map(message =>
         message.sender === user.data._id ? (
           <MyChatBubble key={message._id} text={message.text} />
         ) : (
