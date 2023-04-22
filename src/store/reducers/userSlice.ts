@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { isAuth, loginUser, registerUser } from "../actions/userThunk";
+import { mongoUser } from "@/types/types";
 
 const DEFAULT_USER_STATE = {
   loading: false,
@@ -12,7 +13,10 @@ const DEFAULT_USER_STATE = {
 
 export interface User {
   loading: boolean;
-  data: any;
+  data: {
+    _id: string | null;
+    nickname: string | null;
+  };
   auth: null | boolean;
 }
 

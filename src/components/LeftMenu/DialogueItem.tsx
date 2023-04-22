@@ -1,10 +1,10 @@
 import { randomNiceColor } from '@/lib/tools/colors';
 import { setAsCurrentConversation } from '@/store/reducers/currentConversationSlice';
 import { Conversation } from '@/store/reducers/userConversationsSlice';
-import { AppDispatch } from '@/store/store';
+import { AppDispatch, RootState } from '@/store/store';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface DialogueItemProps {
   conversation: Conversation;
@@ -27,6 +27,9 @@ const DialogueItem = (props: DialogueItemProps) => {
   const [windowWidth] = useWindowSize();
   const dispatch = useDispatch<AppDispatch>();
 
+  const userId = useSelector((state:RootState)=>state.user.data._id);
+  const lastMessageFromDialogue = props.conversation.messages[props.conversation.messages.length - 1];
+  const diaplayedLastMessage = (lastMessageFromDialogue.sender === userId ? 'You: ' : '') + lastMessageFromDialogue.text;
   return (
     <div
       className="bg-white h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center"
@@ -47,7 +50,7 @@ const DialogueItem = (props: DialogueItemProps) => {
           className="overflow-hidden whitespace-nowrap"
           style={{ textOverflow: 'ellipsis', display: 'inline-block', width: `${windowWidth / 4.5}px` }}
         >
-          {props.conversation.messages[props.conversation.messages.length - 1].text}
+          {diaplayedLastMessage}
         </p>
         {/* has to be fixed width, sucks */}
       </div>
