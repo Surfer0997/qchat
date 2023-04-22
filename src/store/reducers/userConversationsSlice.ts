@@ -16,7 +16,13 @@ export interface Conversation {
 const userConversationsSlice = createSlice({
   name: 'userConversations',
   initialState: {loading: false, conversations: [] as Conversation[]} as UserConversations,
-  reducers: {},
+  reducers: {
+    storeSentMessageOnClient(state, action) {
+      state.conversations.forEach((conv)=>{
+        if (conv._id === action.payload.targetConversationId) conv.messages.push(action.payload.message)
+      });
+    }
+  },
   extraReducers(builder) {
     builder.addCase(searchConversationsByUserId.pending, (state)=>{
         state.loading = true;
@@ -32,5 +38,5 @@ const userConversationsSlice = createSlice({
     })
   }
 });
-
+export const {storeSentMessageOnClient} = userConversationsSlice.actions;
 export default userConversationsSlice.reducer;

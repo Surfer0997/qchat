@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!targetConversation) {
           throw new Error('No conversations found, an error occured');
         }
-        res.status(200).json(targetConversation);
+        res.status(200).json(message);
 
         break;
       default:
