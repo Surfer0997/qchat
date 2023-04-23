@@ -27,6 +27,7 @@ const conversationSchema = new mongoose.Schema({
   messages: {
     type: [
         {
+          Msgid: String,
           sender: String,
           text: String,
           date: Date,

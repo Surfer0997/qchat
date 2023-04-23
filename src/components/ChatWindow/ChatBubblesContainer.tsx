@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import ChatBubble from './ChatBubble';
 import MyChatBubble from './MyChatBubble';
 import { RootState } from '@/store/store';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ChatBubblesContainerProps {
   messages: {
@@ -23,12 +24,14 @@ const ChatBubblesContainer = (props: ChatBubblesContainerProps) => {
         width: 'calc(100% - 52px)',
       }}
     >
-      {currentConversation.messages.map(message =>
-        message.sender === user.data._id ? (
-          <MyChatBubble key={message._id} text={message.text} />
+      {currentConversation.messages.map(message => {
+        return message.sender === user.data._id ? (
+          <MyChatBubble key={message._id ? message._id : uuidv4()} text={message.text} />
         ) : (
-          <ChatBubble key={message._id} text={message.text} />
+          <ChatBubble key={message._id ? message._id : uuidv4()} text={message.text} />
         )
+      }
+       
       )}
     </div>
   );

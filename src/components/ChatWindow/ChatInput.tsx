@@ -1,31 +1,30 @@
 import Image from 'next/image';
 import PaperPlane from '../../../public/paper-plane-svgrepo-com.svg';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
-import { sendMessageOnClient } from '@/store/reducers/currentConversationSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { useRef } from 'react';
 import { sendMessageOnServer } from '@/store/actions/currentConversationThunk';
 import { Message } from '../../types/types';
-
+import { randomUUID } from 'crypto';
 const ChatInput = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputRef = useRef<HTMLDivElement>(null);
+  const myId = useSelector((state:RootState)=>state.user.data._id);
 
   const handleSendMessage = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.keyCode == 13 && !e.shiftKey) {
         // Handle sending on enter, but not shift + enter
-
+        e.preventDefault();
         // ASYNC SENDING
         if (inputRef.current?.textContent) {
           const message = {
-            // MOCK
-            sender: '642c86365e47a3c61c2b6e29',
+            sender: myId,
             text: inputRef.current?.textContent,
             date: new Date(),
-            _id: '64398d6b68e51ae1bc3a8c78',
-          };
+          } as Message;
+   
           dispatch(sendMessageOnServer(message))
             .unwrap()
             .then(() => {
@@ -34,7 +33,7 @@ const ChatInput = () => {
         }
       }
     },
-    [dispatch]
+    [dispatch, myId]
   );
 
   return (
