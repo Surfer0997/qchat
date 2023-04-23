@@ -3,8 +3,7 @@ import ChatInput from '@/components/ChatWindow/ChatInput';
 import ChatBubblesContainer from '@/components/ChatWindow/ChatBubblesContainer';
 import ChatHeader from '@/components/ChatWindow/ChatHeader';
 import Menu from '@/components/LeftMenu/Menu';
-
-const MOCK_MESSAGES = require('../../public/MOCK_DATA.json');
+import ChatWindow from '@/components/ChatWindow/ChatWindow';
 
 export default function Home() {
   return (
@@ -20,18 +19,7 @@ export default function Home() {
 
         <div className="w-8/12 flex flex-col h-screen relative">
           <ChatHeader />
-          <div
-            className="chat-main bg-fuchsia-600 flex flex-col items-center"
-            style={{ height: 'calc(100% - 3rem)', marginTop: '3rem' }}
-          >
-            <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600">
-              <div className="chat-bubbles w-2/3 mb-2 h-full">
-                <ChatBubblesContainer messages={MOCK_MESSAGES} />
-              </div>
-            </section>
-
-            <ChatInput />
-          </div>
+          <ChatWindow/>
         </div>
       </main>
     </>
