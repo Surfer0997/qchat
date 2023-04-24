@@ -12,7 +12,6 @@ export const searchConversationsByUserId = createAsyncThunk(
     try {
       const state = getState() as RootState;
       const request = (await axios.post(`/api/conversation`, { userId })) as { data: Conversation[] };
-      dispatch(successGlobal('Conversations found'));
 
       const readyData = request.data.map((d: any) => {
         if (d.name) {

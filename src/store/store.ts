@@ -3,13 +3,15 @@ import userReducer from './reducers/userSlice';
 import notificationsReducer from "./reducers/notificationsSlice";
 import otherUsersReducer from "./reducers/otherUsersSlice";
 import userConversationReducer from "./reducers/userConversationsSlice";
+import currentConversationReducer from "./reducers/currentConversationSlice";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         notifications: notificationsReducer,
         otherUsers: otherUsersReducer,
-        userConversations: userConversationReducer
+        userConversations: userConversationReducer,
+        currentConversation: currentConversationReducer
     }
 });
 
