@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               }
           ]
       }
-      console.log(req.body);
+
         const { myId, destId, messages } = req.body;
   
         const conversation = new conversationModel({

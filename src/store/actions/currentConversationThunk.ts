@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
 import { errorGlobal, successGlobal } from '../reducers/notificationsSlice';
-import { storeCreatedConversationLocally, storeSentMessageOnClient } from '../reducers/userConversationsSlice';
+import { moveConversationToTop, storeCreatedConversationLocally, storeSentMessageOnClient } from '../reducers/userConversationsSlice';
 
 interface ISendMessageOnServer {
   message: Message;
@@ -19,6 +19,7 @@ export const sendMessageOnServer = createAsyncThunk(
       const request = await axios.patch(`/api/conversation`, { targetConversationId, message });
 
       // Update locally
+      dispatch(moveConversationToTop(state.currentConversation.conversation));
       dispatch(storeSentMessageOnClient({targetConversationId, message: {...message, date: message.date.toString()}}));
       return { data: request.data };
     } catch (error) {

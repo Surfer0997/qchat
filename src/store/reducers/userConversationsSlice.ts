@@ -28,6 +28,12 @@ const userConversationsSlice = createSlice({
     },
     storeCreatedConversationLocally(state, action) {
       state.conversations.push(action.payload);
+    },
+    moveConversationToTop(state, action) {
+      const conversation = action.payload as Conversation;
+
+        state.conversations = state.conversations.filter((conv)=>conv._id !== conversation._id);
+        state.conversations.unshift(conversation);
     }
   },
   extraReducers(builder) {
@@ -45,5 +51,5 @@ const userConversationsSlice = createSlice({
     })
   }
 });
-export const {storeSentMessageOnClient, storeCreatedConversationLocally} = userConversationsSlice.actions;
+export const {storeSentMessageOnClient, storeCreatedConversationLocally, moveConversationToTop} = userConversationsSlice.actions;
 export default userConversationsSlice.reducer;

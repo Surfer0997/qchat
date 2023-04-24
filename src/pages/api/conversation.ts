@@ -27,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           { $push: { messages: message } },
           { new: true }
           );
+     
         if (!targetConversation) {
           throw new Error('No conversations found, an error occured');
         }
