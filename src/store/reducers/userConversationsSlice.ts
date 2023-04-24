@@ -11,6 +11,10 @@ export interface Conversation {
   _id: string;
   name: string;
   messages: Message[];
+  members: {
+    _id: string;
+    nickname: string;
+  }[]
 }
 
 const userConversationsSlice = createSlice({
@@ -21,6 +25,9 @@ const userConversationsSlice = createSlice({
       state.conversations.forEach((conv)=>{
         if (conv._id === action.payload.targetConversationId) conv.messages.push(action.payload.message)
       });
+    },
+    storeCreatedConversationLocally(state, action) {
+      state.conversations.push(action.payload);
     }
   },
   extraReducers(builder) {
@@ -38,5 +45,5 @@ const userConversationsSlice = createSlice({
     })
   }
 });
-export const {storeSentMessageOnClient} = userConversationsSlice.actions;
+export const {storeSentMessageOnClient, storeCreatedConversationLocally} = userConversationsSlice.actions;
 export default userConversationsSlice.reducer;

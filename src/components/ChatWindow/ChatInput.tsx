@@ -4,13 +4,15 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { useRef } from 'react';
-import { sendMessageOnServer } from '@/store/actions/currentConversationThunk';
+import { createConversationAnSendMessageOnServer, sendMessageOnServer } from '@/store/actions/currentConversationThunk';
 import { Message } from '../../types/types';
-import { randomUUID } from 'crypto';
+import { v4 as uuid } from 'uuid';
+
 const ChatInput = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputRef = useRef<HTMLDivElement>(null);
   const myId = useSelector((state:RootState)=>state.user.data._id);
+  const currentConversation = useSelector((state:RootState)=>state.currentConversation.conversation);
 
   const handleSendMessage = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -23,17 +25,24 @@ const ChatInput = () => {
             sender: myId,
             text: inputRef.current?.textContent,
             date: new Date(),
+            Msgid: uuid(),
           } as Message;
-   
-          dispatch(sendMessageOnServer(message))
+
+            dispatch(currentConversation.messages.length !== 0 ? sendMessageOnServer(message) : createConversationAnSendMessageOnServer({
+              myId: currentConversation.members[1]._id,
+              destId: currentConversation.members[0]._id,
+              message
+            }))
             .unwrap()
             .then(() => {
               if (inputRef.current) inputRef.current.textContent = '';
             });
+
+          
         }
       }
     },
-    [dispatch, myId]
+    [dispatch, myId, currentConversation]
   );
 
   return (

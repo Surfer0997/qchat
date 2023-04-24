@@ -8,15 +8,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await dbConnect();
 
     switch (req.method) {
-      case 'PATCH':
+      case 'POST':
+        const mock = {
+          myId:"642c86365e47a3c61c2b6e29",
+          destId: "642129841068b58ceb88098a",
+          messages: [
+              {
+                  sender:"me",
+                  text:"Hello no",
+                  date: new Date(),
+                  MsgId: "swr332455435ew3f"
+              }
+          ]
+      }
+      console.log(req.body);
         const { myId, destId, messages } = req.body;
-
+  
         const conversation = new conversationModel({
           members: [myId, destId],
           messages,
           date: new Date(),
         });
-
+ 
         await conversation.save();
 
         res.status(201).json(conversation);

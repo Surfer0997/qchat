@@ -7,7 +7,7 @@ export type mongoUser = {
 };
 
 export type Message = {
-  _id: string;
+  Msgid: string;
   sender: string;
   text: string;
   date: Date;

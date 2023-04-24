@@ -15,6 +15,7 @@ const ChatBubblesContainer = () => {
         width: 'calc(100% - 52px)',
       }}
     >
+      {currentConversation.messages.length === 0 && 'Send message to start conversation!'}
       {currentConversation.messages.map(message => {
         return message.sender === user.data._id ? (
           <MyChatBubble key={message._id ? message._id : uuidv4()} text={message.text} />

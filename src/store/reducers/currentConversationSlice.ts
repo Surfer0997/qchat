@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Conversation } from "./userConversationsSlice";
-import { sendMessageOnServer } from "../actions/currentConversationThunk";
+import { createConversationAnSendMessageOnServer, sendMessageOnServer } from "../actions/currentConversationThunk";
 import { Message } from "@/types/types";
 
 const currentConversationSlice = createSlice({
@@ -8,7 +8,7 @@ const currentConversationSlice = createSlice({
     initialState: {conversation: {} as Conversation},
     reducers: {
         setAsCurrentConversation(state, action) {
-            state.conversation = action.payload;
+            state.conversation = {...action.payload};
         },
         sendMessageOnClient(state, action) {
             state.conversation.messages.push(action.payload);
@@ -17,6 +17,9 @@ const currentConversationSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(sendMessageOnServer.fulfilled, (state, action)=>{
             state.conversation.messages.push(action.payload.data as Message); // Add on client after successfully adding on server
+        })
+        .addCase(createConversationAnSendMessageOnServer.fulfilled, (state, action)=>{
+            state.conversation = action.payload.data;
         }) 
     },
 });
