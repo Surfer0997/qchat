@@ -1,9 +1,9 @@
 import { randomNiceColor } from '@/lib/tools/colors';
 import { setAsCurrentConversation } from '@/store/reducers/currentConversationSlice';
-import { Conversation } from '@/store/reducers/userConversationsSlice';
 import { AppDispatch, RootState } from '@/store/store';
+import { Conversation } from '@/types/types';
 import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface DialogueItemProps {

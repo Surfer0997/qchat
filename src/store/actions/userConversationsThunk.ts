@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { errorGlobal, successGlobal } from '../reducers/notificationsSlice';
-import { Conversation } from '../reducers/userConversationsSlice';
+
 import { RootState } from '../store';
+import { Conversation } from '@/types/types';
 interface ISearchConversationsByUserId {
   userId: string;
 }

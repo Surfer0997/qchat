@@ -7,8 +7,20 @@ export type mongoUser = {
 };
 
 export type Message = {
+  _id: string;
   Msgid: string;
   sender: string;
   text: string;
   date: Date;
 };
+
+export interface Conversation {
+  _id: string;
+  name: string;
+  messages: Message[];
+  order: number;
+  members: {
+    _id: string;
+    nickname: string;
+  }[]
+}

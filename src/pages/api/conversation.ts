@@ -21,17 +21,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'PATCH':
-        const { targetConversationId, message } = req.body; // maybe FIX
+        const { targetConversationId, message, order } = req.body; // maybe FIX
+        console.log(targetConversationId);
         const targetConversation = await conversationModel.findOneAndUpdate(
-          targetConversationId,
-          { $push: { messages: message } },
+          {_id: targetConversationId},
+          { $push: { messages: message }, $set: {order} },
           { new: true }
           );
-     
+          console.log(targetConversation);
         if (!targetConversation) {
           throw new Error('No conversations found, an error occured');
         }
-        res.status(200).json(message);
+        res.status(200).json(targetConversation);
 
         break;
       default:

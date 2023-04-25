@@ -38,6 +38,10 @@ const conversationSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  order: {
+    type: Number,
+    default: 0
+  },
   date: {
     type: Date,
     default: Date.now(),
