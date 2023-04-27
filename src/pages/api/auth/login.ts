@@ -13,7 +13,7 @@ export default async function handler(
     await dbConnect();
     switch (req.method) {
       case "GET":
-        const nicknameToSignIn = authenticate(req, res);
+        const nicknameToSignIn = authenticate(req);
         if (!nicknameToSignIn) {
           res.status(401).send({message:'Bad token'});
           return;

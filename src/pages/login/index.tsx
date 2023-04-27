@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "@/store/actions/userThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { errorGlobal } from "@/store/reducers/notificationsSlice";
-import { useRouter } from 'next/router'
 import { PreventExtraSignIn } from "@/lib/HOC/PreventExtraSignIn";
 
 const inter = Inter({ subsets: ["latin"] });

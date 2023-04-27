@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export const authenticate = (req:NextApiRequest, res:NextApiResponse):any => {
+export const authenticate = (req:NextApiRequest):any => {
     const token = req.cookies['x-access-token'];
     let decodedNick = undefined as string | undefined;
    jwt.verify(token, process.env.DB_SECRET, (err:any, decode:any)=>{
@@ -9,5 +9,5 @@ export const authenticate = (req:NextApiRequest, res:NextApiResponse):any => {
         if(!decode) return undefined;
         decodedNick = decode.nickname;
     });
-    return decodedNick
+    return decodedNick;
 };

@@ -16,6 +16,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         res.status(200).json(users);
         break;
+
+        case 'GET': // route to get users from search
+        const allUsers = await userModel.find();
+        if (!allUsers) {
+          throw new Error('No users found, try other letters!');
+        }
+        res.status(200).json(allUsers);
+        break;
+
       default:
         throw new Error('Bad request');
     }

@@ -22,3 +22,21 @@ export const searchUsersByString = createAsyncThunk(
     }
   }
 );
+
+export const searchAllUsers = createAsyncThunk(
+  "otherUsers/searchAllUsers",
+  async ( _, { dispatch, getState }) => {
+    try {
+      const request = await axios.get(`/api/searched-users`);
+      dispatch(successGlobal("Users found"));
+
+      const state = getState() as RootState; // filter user itself
+      const userId = state.user.data._id;
+      return { data: request.data.filter((otherUser:any)=>otherUser._id !== userId) };
+    } catch (error: any) {
+
+      dispatch(errorGlobal("Error while searching users"));
+      throw error;
+    }
+  }
+);
