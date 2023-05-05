@@ -4,17 +4,28 @@ interface IOtherUsersSlice {
   users: {_id: string; nickname: string}[] | [];
   loading: boolean;
   allUsersAreDisplayed: boolean;
+  socketUsers:any; // FIX
 }
 const initialState: IOtherUsersSlice = {
   users: [],
   loading: false,
-  allUsersAreDisplayed: false
+  allUsersAreDisplayed: false,
+  socketUsers: [] // FIX
 };
 
 export const otherUsersSlice = createSlice({
   name: "otherUsers",
   initialState,
-  reducers: {},
+  reducers: {
+    addSocketUsers(state, action) {
+       // action.payload = users as SocketUser[]
+      state.socketUsers = [...action.payload];
+    },
+    addNewSocketUser(state, action) {
+      // action.payload = user as SocketUser
+      state.socketUsers.push(action.payload);
+    },
+  },
   extraReducers: (builder)=>{
     builder.addCase(searchUsersByString.pending, (state)=>{
         state.loading = true;
@@ -40,5 +51,5 @@ export const otherUsersSlice = createSlice({
       })
   }
 });
-
+export const { addSocketUsers, addNewSocketUser} = otherUsersSlice.actions;
 export default otherUsersSlice.reducer;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { RootState } from '../store';
 import { errorGlobal } from '../reducers/notificationsSlice';
 import { storeCreatedConversationLocally, storeSentMessageOnClient } from '../reducers/userConversationsSlice';
+import { sendMessageOnClient } from '../reducers/currentConversationSlice';
 
 interface ISendMessageOnServer {
   message: Message;
@@ -16,17 +17,14 @@ export const sendMessageOnServer = createAsyncThunk(
     try {
       const state = getState() as RootState;
       const targetConversationId = state.currentConversation.conversation._id;
-      console.log(targetConversationId);
       // GET HIGEST ORDER => CREATE WITH HIGHER ORDER
       const maxOrder = Math.max(...state.userConversations.conversations.map((conv)=>conv.order));
       const order = state.currentConversation.conversation.order === maxOrder ? maxOrder : maxOrder + 1;
-      console.log(state.currentConversation.conversation.order, maxOrder);
-      console.log(order);
       const request = await axios.patch(`/api/conversation`, { targetConversationId, message, order });
     
       // Update locally
-      dispatch(storeCreatedConversationLocally(request.data));
-      // dispatch(storeSentMessageOnClient({targetConversationId, message: {...message, date: message.date.toString()}}));
+      dispatch(sendMessageOnClient({...message, date: message.date.toString()}));
+      dispatch(storeSentMessageOnClient({targetConversationId, message: {...message, date: message.date.toString()}}));
       return { data: request.data };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));

@@ -6,6 +6,7 @@ import Menu from '@/components/LeftMenu/Menu';
 import ChatWindow from '@/components/ChatWindow/ChatWindow';
 
 export default function Home() {
+
   return (
     <>
       <Head>
@@ -19,7 +20,7 @@ export default function Home() {
 
         <div className="w-8/12 flex flex-col h-screen relative">
           <ChatHeader />
-          <ChatWindow/>
+          <ChatWindow />
         </div>
       </main>
     </>

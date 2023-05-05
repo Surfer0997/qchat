@@ -18,25 +18,29 @@ const userConversationsSlice = createSlice({
     },
     storeCreatedConversationLocally(state, action) {
       const conversation = action.payload as Conversation;
-      console.log(conversation);
       state.conversations = state.conversations.filter((conv)=>conv._id !== conversation._id);
-      state.conversations.push({...action.payload, name:'MQReaper'});
+      state.conversations.push({...action.payload, name:'MQReaper'}); ////////// FIX TODO
     },
+    //////////////SOCKET
+    storeMessageFromSocket(state, action) {
+      const message = action.payload.message as Message;
+      state.conversations.forEach((conv)=>{
+        if (conv._id === action.payload.targetConversationId) conv.messages.push(message)
+      });
+    }
   },
   extraReducers(builder) {
     builder.addCase(searchConversationsByUserId.pending, (state)=>{
         state.loading = true;
     })
     .addCase(searchConversationsByUserId.fulfilled, (state, action) => {
-
         state.loading = false;
         state.conversations = action.payload.data;
-
     })
     .addCase(searchConversationsByUserId.rejected, (state)=>{
         state.loading = false;
     })
   }
 });
-export const {storeSentMessageOnClient, storeCreatedConversationLocally } = userConversationsSlice.actions;
+export const {storeSentMessageOnClient, storeCreatedConversationLocally, storeMessageFromSocket } = userConversationsSlice.actions;
 export default userConversationsSlice.reducer;

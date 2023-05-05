@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './reducers/userSlice';
 import notificationsReducer from "./reducers/notificationsSlice";
 import otherUsersReducer from "./reducers/otherUsersSlice";
-import userConversationReducer from "./reducers/userConversationsSlice";
+import userConversationsReducer from "./reducers/userConversationsSlice";
 import currentConversationReducer from "./reducers/currentConversationSlice";
 
 export const store = configureStore({
@@ -10,7 +10,7 @@ export const store = configureStore({
         user: userReducer,
         notifications: notificationsReducer,
         otherUsers: otherUsersReducer,
-        userConversations: userConversationReducer,
+        userConversations: userConversationsReducer,
         currentConversation: currentConversationReducer
     }
 });

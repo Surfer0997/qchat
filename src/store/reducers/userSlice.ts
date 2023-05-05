@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { isAuth, loginUser, registerUser } from "../actions/userThunk";
 import { mongoUser } from "@/types/types";
+import { removeTokenFromCookie } from "../actions/userThunk";
 
 const DEFAULT_USER_STATE = {
   loading: false,
@@ -23,7 +24,12 @@ export interface User {
 const userSlice = createSlice({
   name: "user",
   initialState: DEFAULT_USER_STATE as User,
-  reducers: {},
+  reducers: {
+    logOut(state) {
+      state = DEFAULT_USER_STATE;
+      removeTokenFromCookie();
+    }
+  },
   extraReducers: (builder) => {
     // REGISTRATION
     builder
@@ -64,5 +70,5 @@ const userSlice = createSlice({
       });
   },
 });
-
+export const {logOut} = userSlice.actions;
 export default userSlice.reducer;

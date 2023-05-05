@@ -6,6 +6,7 @@ import {useState, useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { searchUsersByString } from "@/store/actions/otherUsersThunk";
+import { logOut } from "@/store/reducers/userSlice";
 
 interface MenuHeaderPorps {
   handleListDisplay:(val:boolean)=>void;
@@ -32,7 +33,7 @@ export const MenuHeader = (props:MenuHeaderPorps) => {
 
   return (
     <div className="searchBar flex justify-center items-center gap-4">
-      <button>
+      <button onClick={()=>dispatch(logOut())}>
         <Image
           src={props.isSearchEnabled ? ArrowLeft : BurgerMenuIcon}
           width={32}
