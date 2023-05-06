@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { searchAllUsers, searchUsersByString } from "../actions/otherUsersThunk";
+import { SocketUser } from "@/types/types";
 interface IOtherUsersSlice {
-  users: {_id: string; nickname: string}[] | [];
+  users: {_id: string; nickname: string, socketID?: string}[];
   loading: boolean;
   allUsersAreDisplayed: boolean;
-  socketUsers:any; // FIX
+  socketUsers:{
+    userSocketID: string,
+      userID: string,
+  }[]; // FIX
 }
 const initialState: IOtherUsersSlice = {
   users: [],
   loading: false,
   allUsersAreDisplayed: false,
-  socketUsers: [] // FIX
+  socketUsers: []
 };
 
 export const otherUsersSlice = createSlice({
@@ -19,12 +23,25 @@ export const otherUsersSlice = createSlice({
   reducers: {
     addSocketUsers(state, action) {
        // action.payload = users as SocketUser[]
-      state.socketUsers = [...action.payload];
+       state.users = state.users.map((user)=>{
+        const indexOfExistingSocket = action.payload.findIndex((socketUser:SocketUser)=>socketUser.userID === user._id);
+        if (indexOfExistingSocket >= 0) {
+          return {...user, socketID: action.payload[indexOfExistingSocket].userSocketID}
+        } 
+        return user;
+       })
     },
     addNewSocketUser(state, action) {
       // action.payload = user as SocketUser
-      state.socketUsers.push(action.payload);
+      state.users = state.users.map((user)=>{
+       return user._id === action.payload.userID ? {...user, socketID: action.payload.userSocketID} : user;
+      });
     },
+    deleteSocketUser(state, action) { // TEST
+      state.users = state.users.map((user)=>{
+        return user._id === action.payload.userID ? {...user, socketID: undefined} : user;
+       });
+    }
   },
   extraReducers: (builder)=>{
     builder.addCase(searchUsersByString.pending, (state)=>{
@@ -51,5 +68,5 @@ export const otherUsersSlice = createSlice({
       })
   }
 });
-export const { addSocketUsers, addNewSocketUser} = otherUsersSlice.actions;
+export const { addSocketUsers, addNewSocketUser, deleteSocketUser} = otherUsersSlice.actions;
 export default otherUsersSlice.reducer;

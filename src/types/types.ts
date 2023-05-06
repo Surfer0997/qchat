@@ -24,3 +24,7 @@ export interface Conversation {
     nickname: string;
   }[]
 }
+export type SocketUser = {
+  userSocketID: String;
+  userID: String;
+}

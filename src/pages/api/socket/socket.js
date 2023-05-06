@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 
+
 export default function SocketHandler(req, res) {
   // It means that socket server was already initialised
   if (res.socket.server.io) {
@@ -43,6 +44,14 @@ export default function SocketHandler(req, res) {
     /////// SEND PRIVATE MESSAGE
     socket.on("private message", ({ message, to, from }) => {
       socket.to(to).emit("newIncomingMessage", {author: from, message});
+    });
+
+    ////// HANDLE DISCONNECT
+    socket.on("disconnect", (reason) => {
+      socket.broadcast.emit("user disconnected", {
+        userSocketID: socket.id,
+        userID: socket.userID,
+      });
     });
   };
 

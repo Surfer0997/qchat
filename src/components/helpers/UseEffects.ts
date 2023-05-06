@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { Message } from '@/types/types';
 import { storeMessageFromSocket } from '@/store/reducers/userConversationsSlice';
 import { sendMessageOnClient } from '@/store/reducers/currentConversationSlice';
+import { searchAllUsers } from '@/store/actions/otherUsersThunk';
 
 const UseEffects = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,7 +56,15 @@ const UseEffects = () => {
           socket.connect();
         });
       });
+
+      return ()=>{
+        socket.disconnect();
+      }
   }, [dispatch, user._id]);
+
+  useEffect(()=>{
+    dispatch(searchAllUsers());
+  }, [dispatch]);
 
   useEffect(() => {
     const { global } = notifications;

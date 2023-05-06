@@ -10,7 +10,7 @@ const SearchedUsers = () => {
   const allUsersAreDisplayed = useSelector((state:RootState)=>state.otherUsers.allUsersAreDisplayed);
 
   const handleAllSearch = () => {
-    dispatch(searchAllUsers());
+    //dispatch(searchAllUsers());
   }
   return (
     <div className="mt-2 pt-4 bg-white w-5/6 m-auto text-center" style={{ maxHeight: 'calc(100% - 4rem)', overflow:'auto'}}>

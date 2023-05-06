@@ -23,7 +23,7 @@ export const MenuHeader = (props:MenuHeaderPorps) => {
    useEffect(
     () => {
       if (debouncedSearchTerm) {
-        dispatch(searchUsersByString(debouncedSearchTerm));
+      //  dispatch(searchUsersByString(debouncedSearchTerm));
       }
     },
     [debouncedSearchTerm, dispatch] // Only call effect if debounced search term changes

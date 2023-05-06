@@ -1,4 +1,4 @@
-import { addNewSocketUser, addSocketUsers } from "@/store/reducers/otherUsersSlice";
+import { addNewSocketUser, addSocketUsers, deleteSocketUser } from "@/store/reducers/otherUsersSlice";
 import { AppDispatch } from "@/store/store";
 import { io } from "socket.io-client";
 
@@ -23,6 +23,10 @@ export const socketInitializer = async (dispatch:AppDispatch) => {
     
     socket.on('user connected', (user:SocketUser)=>{
         dispatch(addNewSocketUser(user));
+    })
+
+    socket.on('user disconnected', (user:SocketUser)=>{
+        dispatch(deleteSocketUser(user));
     })
 
     socket.onAny((event:any) => {

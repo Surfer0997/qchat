@@ -5,10 +5,6 @@ import { io } from 'socket.io-client';
 import { socketInitializer } from './useSocket';
 import { RootState } from '@/store/store';
 
-type SocketUser = {
-    userSocketID: String;
-    userID: String;
-}
 
 export let socket = io('', {autoConnect:false});
 const Socket = () => {
