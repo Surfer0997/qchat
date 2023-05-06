@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useRouter } from 'next/router';
 import { Message } from '@/types/types';
-import { storeMessageFromSocket } from '@/store/reducers/userConversationsSlice';
+import { storeCreatedConversationLocally, storeSentMessageOnClient } from '@/store/reducers/userConversationsSlice';
 import { sendMessageOnClient } from '@/store/reducers/currentConversationSlice';
 import { searchAllUsers } from '@/store/actions/otherUsersThunk';
+import { searchConversationsByUserId } from '@/store/actions/userConversationsThunk';
 
 const UseEffects = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,11 +30,14 @@ const UseEffects = () => {
         
         const targetConversationId = conversations.find((conv)=>conv.members[0]._id === message.sender || conv.members[1]._id === message.sender )?._id;
         if (targetConversationId) {
-          dispatch(storeMessageFromSocket({targetConversationId, message}));
+          dispatch(storeSentMessageOnClient({targetConversationId, message}));
           if (targetConversationId === currentConversationId) {
             dispatch(sendMessageOnClient(message));
           }
           letGettingMessage.current = false;
+        } else {
+          if (user._id)
+          dispatch(searchConversationsByUserId({userId: user._id})) // get from DB cause sender has already created it???
         }
       });
     }

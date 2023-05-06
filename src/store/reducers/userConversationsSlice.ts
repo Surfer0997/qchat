@@ -22,12 +22,7 @@ const userConversationsSlice = createSlice({
       state.conversations.push(action.payload);
     },
     //////////////SOCKET
-    storeMessageFromSocket(state, action) {
-      const message = action.payload.message as Message;
-      state.conversations.forEach((conv)=>{
-        if (conv._id === action.payload.targetConversationId) conv.messages.push(message)
-      });
-    }
+
   },
   extraReducers(builder) {
     builder.addCase(searchConversationsByUserId.pending, (state)=>{
@@ -42,5 +37,5 @@ const userConversationsSlice = createSlice({
     })
   }
 });
-export const {storeSentMessageOnClient, storeCreatedConversationLocally, storeMessageFromSocket } = userConversationsSlice.actions;
+export const {storeSentMessageOnClient, storeCreatedConversationLocally } = userConversationsSlice.actions;
 export default userConversationsSlice.reducer;
