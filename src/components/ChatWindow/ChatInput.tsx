@@ -15,10 +15,6 @@ const ChatInput = () => {
   const myId = useSelector((state:RootState)=>state.user.data._id);
   const currentConversation = useSelector((state:RootState)=>state.currentConversation.conversation);
 
-
-  /////////////////////////
-  const sendTo = useSelector((state:RootState)=>state.otherUsers.socketUsers);
-  /////////////////////////
   const handleSendMessage = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.keyCode == 13 && !e.shiftKey) {
@@ -41,9 +37,11 @@ const ChatInput = () => {
             .unwrap()
             .then(() => {
               if (inputRef.current) inputRef.current.textContent = '';
-              socket.emit("private message", {
-                author: myId, message, to: sendTo[0].userSocketID
-              });
+              if (currentConversation.socketID) {
+                socket.emit("private message", {
+                  author: myId, message, to: currentConversation.socketID
+                });
+              }
             });
 
           

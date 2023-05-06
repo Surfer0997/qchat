@@ -22,7 +22,8 @@ export interface Conversation {
   members: {
     _id: string;
     nickname: string;
-  }[]
+  }[],
+  socketID?:string;
 }
 export type SocketUser = {
   userSocketID: String;
