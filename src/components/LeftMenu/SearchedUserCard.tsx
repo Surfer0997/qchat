@@ -10,6 +10,7 @@ interface SearchedUserCardProps {
   user: {
     nickname: string;
     _id: string;
+    socketID?: string
   }
 }
 
@@ -31,10 +32,11 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
           _id: props.user._id
         },
         userData
-      ] 
+      ],
+      socketID: props.user?.socketID
     };
 
-    dispatch(setAsCurrentConversation(existingConversation ? existingConversation : mockNewCurrentConversation));
+    dispatch(setAsCurrentConversation(existingConversation ? {...existingConversation, socketID: props.user?.socketID} : mockNewCurrentConversation));
     
   }
 

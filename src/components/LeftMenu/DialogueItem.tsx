@@ -30,10 +30,19 @@ const DialogueItem = (props: DialogueItemProps) => {
   const userId = useSelector((state:RootState)=>state.user.data._id);
   const lastMessageFromDialogue = props.conversation.messages[props.conversation.messages.length - 1];
   const diaplayedLastMessage = (lastMessageFromDialogue.sender === userId ? 'You: ' : '') + lastMessageFromDialogue.text;
+
+  //// FIND SOCKET ID IF EXISTS (maybe FIX TODO)
+  // get other user ID
+  const targetUserId = props.conversation.members[0]._id === userId ? props.conversation.members[1]._id : props.conversation.members[0]._id;
+  // get other users
+  // find the one we need
+  const targetUser = useSelector((state:RootState)=>state.otherUsers.users.filter((user)=>user._id === targetUserId))[0];
+  // pass socket
+
   return (
     <div
       className="bg-white h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center"
-      onClick={() => dispatch(setAsCurrentConversation(props.conversation))}
+      onClick={() => dispatch(setAsCurrentConversation({...props.conversation, socketID: targetUser?.socketID}))}
     >
       <Image
         src={`https://ui-avatars.com/api/?length=1&background=${randomNiceColor(

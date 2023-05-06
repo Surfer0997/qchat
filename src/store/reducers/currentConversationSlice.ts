@@ -4,7 +4,7 @@ import { Conversation } from "@/types/types";
 
 const currentConversationSlice = createSlice({
     name: 'currentConversation',
-    initialState: {conversation: {} as Conversation},
+    initialState: {conversation: {} as Conversation}, // + socketID field, if socketId exists at end user
     reducers: {
         setAsCurrentConversation(state, action) {
             state.conversation = {...action.payload};
