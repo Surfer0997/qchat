@@ -19,7 +19,7 @@ const userConversationsSlice = createSlice({
     storeCreatedConversationLocally(state, action) {
       const conversation = action.payload as Conversation;
       state.conversations = state.conversations.filter((conv)=>conv._id !== conversation._id);
-      state.conversations.push({...action.payload, name:'MQReaper'}); ////////// FIX TODO
+      state.conversations.push(action.payload);
     },
     //////////////SOCKET
     storeMessageFromSocket(state, action) {

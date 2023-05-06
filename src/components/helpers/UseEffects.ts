@@ -23,7 +23,6 @@ const UseEffects = () => {
   const letGettingMessage = useRef(true);
 
   useEffect(()=>{
-    console.log(letGettingMessage);
     if (letGettingMessage.current) {
       socket.on('newIncomingMessage', ({ message }: { message: Message }) => {
         

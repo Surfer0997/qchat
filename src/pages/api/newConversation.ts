@@ -2,6 +2,7 @@
 import conversationModel from '@/models/conversation.model';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/mongoDB/dbConnect';
+import userModel from '@/models/user.model';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -20,8 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
  
         await conversation.save();
+        
+        const populatedConversation = await conversationModel.findById(conversation._id).populate('members', '_id nickname', userModel);
 
-        res.status(201).json(conversation);
+        res.status(201).json(populatedConversation);
         return;
 
       default:

@@ -50,9 +50,9 @@ export const createConversationAnSendMessageOnServer = createAsyncThunk(
       const request = await axios.post(`/api/newConversation`, {messages: [message], myId, destId, order:maxOrder + 1 });
       
       // Update locally
-      dispatch(storeCreatedConversationLocally(request.data));
+      dispatch(storeCreatedConversationLocally({...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname}));
 
-      return { data: request.data };
+      return { data: {...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname} };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));
       throw error;
