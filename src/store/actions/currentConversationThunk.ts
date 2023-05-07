@@ -22,10 +22,12 @@ export const sendMessageOnServer = createAsyncThunk(
       const order = state.currentConversation.conversation.order === maxOrder ? maxOrder : maxOrder + 1;
       const request = await axios.patch(`/api/conversation`, { targetConversationId, message, order });
     
+      // SOCKET
+      const socketID = state.currentConversation.conversation.socketID;
       // Update locally
       dispatch(sendMessageOnClient({...message, date: message.date.toString()}));
       dispatch(storeSentMessageOnClient({targetConversationId, message: {...message, date: message.date.toString()}}));
-      return { data: request.data };
+      return { data: {...request.data, socketID} };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));
       throw error;

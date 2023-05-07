@@ -3,7 +3,7 @@ import { socket, socketInitializer } from '@/lib/socket/socketInitializer';
 import { isAuth } from '@/store/actions/userThunk';
 import { clearNotifications } from '@/store/reducers/notificationsSlice';
 import { AppDispatch, RootState } from '@/store/store';
-import { useEffect,useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useRouter } from 'next/router';
@@ -20,29 +20,37 @@ const UseEffects = () => {
 
   const notifications = useSelector((state: RootState) => state.notifications);
   const user = useSelector((state: RootState) => state.user.data);
-  const conversations = useSelector((state:RootState)=>state.userConversations.conversations)
-  const currentConversationId = useSelector((state:RootState)=>state.currentConversation.conversation._id)
-  const letGettingMessage = useRef(true);
+  const conversations = useSelector((state: RootState) => state.userConversations.conversations);
+  const currentConversationId = useSelector((state: RootState) => state.currentConversation.conversation._id);
+  const lastMessage = useRef({} as Message);
 
-  useEffect(()=>{
-    if (letGettingMessage.current) {
-      socket.on('newIncomingMessage', ({ message }: { message: Message }) => {
-        
-        const targetConversationId = conversations.find((conv)=>conv.members[0]._id === message.sender || conv.members[1]._id === message.sender )?._id;
-        if (targetConversationId) {
-          dispatch(storeSentMessageOnClient({targetConversationId, message}));
-          if (targetConversationId === currentConversationId) {
-            dispatch(sendMessageOnClient(message));
-          }
-          letGettingMessage.current = false;
-        } else {
-          if (user._id)
-          dispatch(searchConversationsByUserId({userId: user._id})) // get from DB cause sender has already created it???
+  const sentInCurrentConv = useRef(false);
+
+  useEffect(() => {
+    socket.on('newIncomingMessage', ({ message }: { message: Message }) => {
+      const targetConversationId = conversations.find(
+        conv => conv.members[0]._id === message.sender || conv.members[1]._id === message.sender
+      )?._id;
+      if (targetConversationId) {
+        if (lastMessage.current.date !== message.date) {
+          sentInCurrentConv.current = false;
+          dispatch(storeSentMessageOnClient({ targetConversationId, message }));
         }
-      });
-    }
-   letGettingMessage.current = true;
-  }, [conversations, dispatch, currentConversationId]);
+
+        if (targetConversationId === currentConversationId) {
+          console.log(lastMessage.current.date, message.date);
+          if (!sentInCurrentConv.current) {
+            dispatch(sendMessageOnClient(message));
+            sentInCurrentConv.current = true;
+          }
+        }
+      } else {
+        if (user._id)
+          if (lastMessage.current.date !== message.date) dispatch(searchConversationsByUserId({ userId: user._id })); // Refresh user conv-s to get new one
+      }
+      lastMessage.current = message;
+    });
+  }, [conversations, dispatch, currentConversationId, user._id]);
 
   const router = useRouter();
   useEffect(() => {
@@ -61,12 +69,12 @@ const UseEffects = () => {
         });
       });
 
-      return ()=>{
-        socket.disconnect();
-      }
+    return () => {
+      socket.disconnect();
+    };
   }, [dispatch, user._id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(searchAllUsers());
   }, [dispatch]);
 
