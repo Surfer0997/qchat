@@ -6,9 +6,8 @@ import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useRouter } from 'next/router';
 import { Message } from '@/types/types';
-import { storeCreatedConversationLocally, storeSentMessageOnClient } from '@/store/reducers/userConversationsSlice';
+import { storeSentMessageOnClient } from '@/store/reducers/userConversationsSlice';
 import { sendMessageOnClient } from '@/store/reducers/currentConversationSlice';
 import { searchAllUsers } from '@/store/actions/otherUsersThunk';
 import { searchConversationsByUserId } from '@/store/actions/userConversationsThunk';
@@ -52,10 +51,7 @@ const UseEffects = () => {
     });
   }, [conversations, dispatch, currentConversationId, user._id]);
 
-  const router = useRouter();
-  useEffect(() => {
-    if (!user._id) router.push('/login');
-  }, [user._id]);
+ 
 
   useEffect(() => {
     // SIGN IN WITH COOKIE

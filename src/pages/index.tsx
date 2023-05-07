@@ -4,9 +4,24 @@ import ChatBubblesContainer from '@/components/ChatWindow/ChatBubblesContainer';
 import ChatHeader from '@/components/ChatWindow/ChatHeader';
 import Menu from '@/components/LeftMenu/Menu';
 import ChatWindow from '@/components/ChatWindow/ChatWindow';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import {useEffect} from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const userId = useSelector((state: RootState) => state.user.data._id);
+  const router = useRouter();
 
+  useEffect(()=>{
+    if (!userId) router.push('/login')
+  }, [userId, router])
+
+  if (!userId) {
+    return null;
+  }
+
+ 
   return (
     <>
       <Head>

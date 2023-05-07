@@ -1,20 +1,29 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import Card from '../../components/UI/Card';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import LoginPageInput from '@/components/UI/LoginPageInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser } from '@/store/actions/userThunk';
 import { AppDispatch, RootState } from '@/store/store';
 import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
-import { socket } from '@/lib/socket/socketInitializer';
+import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Login() {
+
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user);
+
+    // Prevent extra sign in TODO TEST
+    const router = useRouter();
+
+    useEffect(()=>{
+      if (user.data._id) router.push('/')
+    }, [user.data._id, router]);
+
 
   const [actionType, setActionType] = useState<'login' | 'register'>('login');
   const actionTypeHandler = () => {
@@ -69,6 +78,11 @@ export default function Login() {
 
     clearInputs();
   };
+
+  if (user.data._id) { // Prevent extra sign in
+    return null;
+  }
+
   return (
     <PreventExtraSignIn>
       <Head>
