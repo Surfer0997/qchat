@@ -43,7 +43,7 @@ interface ICreateConversationAnSendMessageOnServer {
 
 export const createConversationAnSendMessageOnServer = createAsyncThunk(
   'currentConversation/createConversationAnSendMessageOnServer',
-  async ( {message, myId, destId} : any, { dispatch, getState }) => {
+  async ( {message, myId, destId, socketID} : any, { dispatch, getState }) => {
   
     try {
       const state = getState() as RootState;
@@ -54,7 +54,7 @@ export const createConversationAnSendMessageOnServer = createAsyncThunk(
       // Update locally
       dispatch(storeCreatedConversationLocally({...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname}));
 
-      return { data: {...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname} };
+      return { data: {...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname, socketID} };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));
       throw error;

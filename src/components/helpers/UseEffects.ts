@@ -37,7 +37,6 @@ const UseEffects = () => {
         }
 
         if (targetConversationId === currentConversationId) {
-          console.log(lastMessage.current.date, message.date);
           if (!sentInCurrentConv.current) {
             dispatch(sendMessageOnClient(message));
             sentInCurrentConv.current = true;

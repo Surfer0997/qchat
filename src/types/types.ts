@@ -29,3 +29,9 @@ export type SocketUser = {
   userSocketID: String;
   userID: String;
 }
+
+export type OtherUser = {
+  _id: string;
+  nickname: string;
+  socketID?: string | undefined;
+}

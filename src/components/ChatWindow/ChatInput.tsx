@@ -32,7 +32,8 @@ const ChatInput = () => {
             dispatch(currentConversation.messages.length !== 0 ? sendMessageOnServer(message) : createConversationAnSendMessageOnServer({
               myId: currentConversation.members[1]._id,
               destId: currentConversation.members[0]._id,
-              message
+              message,
+              socketID: currentConversation?.socketID
             }))
             .unwrap()
             .then(() => {

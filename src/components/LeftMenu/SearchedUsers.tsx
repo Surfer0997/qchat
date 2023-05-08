@@ -1,20 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux';
 import SearchedUserCard from './SearchedUserCard';
 import { AppDispatch, RootState } from '@/store/store';
-import { searchAllUsers, searchUsersByString } from '@/store/actions/otherUsersThunk';
 import { SearchAllUsers } from './SearchAllUsers';
+import {useState, useEffect} from 'react';
+import { OtherUser } from '@/types/types';
+import { displayAllUsers, notDisplayAllUsers } from '@/store/reducers/otherUsersSlice';
 
-const SearchedUsers = () => {
+interface ISearchedUsers {
+  searchString: string;
+}
+
+const SearchedUsers = ({searchString}:ISearchedUsers) => {
   const searchedUsers = useSelector((state:RootState) => state.otherUsers.users);
-  const dispatch = useDispatch<AppDispatch>();
   const allUsersAreDisplayed = useSelector((state:RootState)=>state.otherUsers.allUsersAreDisplayed);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [shownUsers, setShownUsers] = useState([] as OtherUser[]);
+
+  useEffect(()=>{
+    if (searchString !== '') {
+      setShownUsers(searchedUsers.filter((user)=>user.nickname.toLowerCase().includes(searchString.toLowerCase())));
+      dispatch(notDisplayAllUsers());
+    } else {
+      setShownUsers([]);
+    }
+  }, [searchString, searchedUsers, dispatch])
 
   const handleAllSearch = () => {
-    //dispatch(searchAllUsers());
+    setShownUsers(searchedUsers);
+    dispatch(displayAllUsers());
   }
+
   return (
     <div className="mt-2 pt-4 bg-white w-5/6 m-auto text-center" style={{ maxHeight: 'calc(100% - 4rem)', overflow:'auto'}}>
-      {searchedUsers.map((user)=><SearchedUserCard key={user._id} user={user} />)}
+      {shownUsers.map((user)=><SearchedUserCard key={user._id} user={user} />)}
 
       
       {!allUsersAreDisplayed && <SearchAllUsers handleAllSearch={handleAllSearch}/>}
