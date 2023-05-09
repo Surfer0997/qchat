@@ -7,7 +7,7 @@ export const NoConversation = () => {
     <div className="w-full h-full flex justify-center items-center" style={{backgroundImage: `url(${scienceDoodleBg.src})`, backgroundSize:'cover'}}>
       <div className='bg-white shadow-2xl p-8 rounded-lg text-center'>
         <p>Please, open conversation to start.</p>
-        <p>If you don&#39t have one, use search bar on the left to find other users and have a nice chat!</p>
+        <p>{`If you don\'t have one, use search bar on the left to find other users and have a nice chat!`}</p>
         <p>Always yours, <b>QChat</b> 💙💛</p>
       </div>
     </div>

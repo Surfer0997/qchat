@@ -14,8 +14,8 @@ const ChatWindow = () => {
       className="chat-main flex flex-col items-center"
       style={{ height: '100%', backgroundImage: `url(${bg.src})`, backgroundRepeat:'repeat-y', backgroundPosition:'center'}}
     >
-      <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto scrollbar-thumb-rose-500 scrollbar-thin scrollbar-corner-orange-600 mt-auto">
-        <div className="chat-bubbles w-2/3 mb-2 h-full">
+      <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto mt-auto chat-window">
+        <div className="chat-bubbles w-2/3 mb-2 rounded-2xl h-fit pb-2" style={{backgroundColor:'#1B1B1B'}}>
           <ChatBubblesContainer />
         </div>
       </section>
