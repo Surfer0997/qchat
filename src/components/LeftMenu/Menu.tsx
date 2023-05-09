@@ -17,7 +17,7 @@ const Menu = () => {
   }, []);
 
   return (
-    <div className="w-4/12 bg-amber-500 h-screen overflow-auto">
+    <div className="w-4/12 h-screen overflow-auto" style={{backgroundColor:'#1B1B1B'}}>
       <MenuHeader handleListDisplay={handleListDisplay} isSearchEnabled={isSearchEnabled} handleUserSearch={handleUserSearch}/>
       {isSearchEnabled ? <SearchedUsers searchString={searchString}/> : <DialogueList/>}
     </div>

@@ -24,6 +24,9 @@ const SearchedUsers = ({searchString}:ISearchedUsers) => {
     } else {
       setShownUsers([]);
     }
+    return ()=>{
+      dispatch(notDisplayAllUsers());
+    }
   }, [searchString, searchedUsers, dispatch])
 
   const handleAllSearch = () => {
