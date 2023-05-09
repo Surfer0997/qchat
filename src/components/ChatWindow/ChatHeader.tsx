@@ -8,7 +8,7 @@ const ChatHeader = () => {
   if (!currentConversation._id) return null;
 
   return (
-    <div className="chat-header bg-neutral-400 h-12 w-full absolute flex justify-start gap-4 items-center">
+    <div className="chat-header h-12 w-full absolute flex justify-start gap-4 items-center" style={{backgroundColor:'#FFC107'}}>
       <div className="ml-4 flex items-center gap-4">
         <Image
           src={`https://ui-avatars.com/api/?length=1&background=${randomNiceColor(
@@ -21,7 +21,7 @@ const ChatHeader = () => {
         />
         <p>{currentConversation.name}</p>
       </div>
-      <div className={`${currentConversation.socketID ? 'text-green-500' : ''} mr-4 font-semibold`}>{currentConversation.socketID ? 'Online' : 'Offline'}</div>
+      <div className={`${currentConversation.socketID ? 'text-white' : ''} mr-4 font-semibold`}>{currentConversation.socketID ? 'Online' : 'Offline'}</div>
     </div>
   );
 };

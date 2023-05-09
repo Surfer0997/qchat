@@ -40,7 +40,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
   }
 
   return (
-    <div className="group h-16 w-5/6 m-auto duration-300  flex items-center gap-4 hover:rounded-xl hover:bg-slate-100 hover:bg-opacity-80" onClick={handleClick}>
+    <div className="group h-16 w-5/6 m-auto duration-300  flex items-center gap-4 hover:rounded-xl hover:bg-slate-100 hover:bg-opacity-80 text-left" onClick={handleClick}>
       <Image
         src={`https://ui-avatars.com/api/?length=1&background=${randomNiceColor(props.user.nickname)}&color=fff&name=${
           props.user.nickname

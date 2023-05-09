@@ -47,7 +47,7 @@ const DialogueItem = (props: DialogueItemProps) => {
 
   return (
     <div
-      className="bg-white h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300"
+      className="bg-slate-50 h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300"
       onClick={() => dispatch(setAsCurrentConversation({ ...props.conversation, socketID: targetUser?.socketID }))}
     >
       <div className={`relative duration-300 ${targetUser?.socketID && 'after:absolute after:w-2 after:h-2 after:rounded-full after:bg-green-500 after:top-1 after:right-0'}`}>

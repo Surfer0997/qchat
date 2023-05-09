@@ -3,6 +3,8 @@ import DialogueItem from './DialogueItem';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect } from 'react';
 import { searchConversationsByUserId } from '@/store/actions/userConversationsThunk';
+import LoaderYellow from '../../../public/LoaderYellow.svg';
+import Image from 'next/image';
 
 const DialogueList = () => {
   const { conversations, loading } = useSelector((state: RootState) => state.userConversations);
@@ -14,7 +16,12 @@ const DialogueList = () => {
       dispatch(searchConversationsByUserId({ userId }));
     }
   }, [dispatch, userId]);
-
+  if (loading)
+    return (
+      <div className='w-full flex justify-center mt-8'>
+        <Image width={50} height={50} src={LoaderYellow} alt="Loading..." />
+      </div>
+    );
   return (
     <div className="mt-2">
       {conversationsToDisplay[0]

@@ -9,10 +9,8 @@ import { AppDispatch, RootState } from '@/store/store';
 import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
 import { useRouter } from 'next/router';
-import starDoodleBg from '../../../public/star-doodle-bg.png';
-import scienceDoodleBg from '../../../public/education.webp';
 import neonBg from '../../../public/neonPattern.jpg';
-import curveBg from '../../../public/curvePattern.webp'
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -102,7 +100,7 @@ export default function Login() {
             <LoginPageInput inputConfig={{ type: 'text' }} style="mt-5" ref={nicknameInput} />
             <LoginPageInput inputConfig={{ type: 'password' }} style="mt-3" ref={passwordInput} />
             <button
-              className={`${actionType === 'login' ? 'bg-blue-600 ' : 'bg-purple-500'} py-2 px-4 mt-2 rounded-md w-full text-white duration-300`}
+              className={`${actionType === 'login' ? 'bg-blue-600 hover:bg-blue-500' : 'bg-purple-500 hover:bg-purple-400'} py-2 px-4 mt-2 rounded-md w-full text-white duration-300`}
               type="submit"
               onClick={submitHandler}
             >
