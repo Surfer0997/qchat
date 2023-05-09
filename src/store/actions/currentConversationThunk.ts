@@ -27,6 +27,7 @@ export const sendMessageOnServer = createAsyncThunk(
       // Update locally
       dispatch(sendMessageOnClient({...message, date: message.date.toString()}));
       dispatch(storeSentMessageOnClient({targetConversationId, message: {...message, date: message.date.toString()}}));
+
       return { data: {...request.data, socketID} };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));

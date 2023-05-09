@@ -5,6 +5,7 @@ import { useDebounce } from '@/lib/tools/debounce';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
+import { logOut } from '@/store/reducers/userSlice';
 
 interface MenuHeaderPorps {
   handleListDisplay: (val: boolean) => void;
@@ -31,22 +32,50 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
+
+  // Handle menu
+  const [showMenu, setShowMenu] = useState(false);
+  const handleMenuButton = () => {
+    if (!isSearchEnabled) {
+      setShowMenu(!showMenu);
+    } else {
+      handleListDisplay(false);
+    }
+  };
   return (
-    <div className="searchBar flex justify-center items-center gap-4">
+    <div
+      className="searchBar flex justify-center items-center gap-4 relative"
+      style={{ height: '40px' }}
+      onMouseLeave={setShowMenu.bind(null, false)}
+    >
+      {showMenu && (
+        <div className="absolute h-80 duration-300" style={{ top: '2.5rem', left: '0rem', width: '60%' }}>
+          <div className="absolute w-5/6 h-72 bg-white rounded-md border-cyan-400 shadow-xl flex flex-col p-2 left-4 top-2">
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md transition-all duration-200"
+              onClick={() => dispatch(logOut())}
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      )}
+
       <button>
         <Image
           src={isSearchEnabled ? ArrowLeft : BurgerMenuIcon}
           width={32}
           height={32}
           alt="Open menu"
-          className="mt-2"
-          onClick={handleListDisplay.bind(null, false)}
+          className={`${showMenu && 'rotate-90'} mt-2 duration-300`}
+          onClick={handleMenuButton}
         ></Image>
       </button>
       <input
         type="text"
         className="mt-2 h-8 rounded-lg indent-2 w-1/2"
         onFocus={handleListDisplay.bind(null, true)}
+        onClick={setShowMenu.bind(null, false)}
         onChange={handleSearch}
       />
     </div>

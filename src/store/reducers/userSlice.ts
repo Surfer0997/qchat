@@ -26,7 +26,8 @@ const userSlice = createSlice({
   initialState: DEFAULT_USER_STATE as User,
   reducers: {
     logOut(state) {
-      state = DEFAULT_USER_STATE;
+      state.data = DEFAULT_USER_STATE.data;
+      state.auth = false;
       removeTokenFromCookie();
     }
   },
@@ -39,7 +40,7 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload.data;
-        state.auth = action.payload.auth;
+        state.auth = true;
       })
       .addCase(registerUser.rejected, (state) => {
         state.loading = false;
@@ -51,7 +52,7 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload.data;
-        state.auth = action.payload.auth;
+        state.auth = true;
       })
       .addCase(loginUser.rejected, (state) => {
         state.loading = false;

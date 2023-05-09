@@ -98,13 +98,13 @@ export default function Login() {
             <LoginPageInput inputConfig={{ type: 'text' }} style="mt-5" ref={nicknameInput} />
             <LoginPageInput inputConfig={{ type: 'password' }} style="mt-3" ref={passwordInput} />
             <button
-              className="bg-blue-600 py-2 px-4 mt-2 rounded-md w-full text-white"
+              className={`${actionType === 'login' ? 'bg-blue-600 ' : 'bg-purple-500'} py-2 px-4 mt-2 rounded-md w-full text-white duration-300`}
               type="submit"
               onClick={submitHandler}
             >
               {actionType[0].toUpperCase() + actionType.slice(1)}
             </button>
-            <button onClick={actionTypeHandler} className="mt-2 underline">
+            <button onClick={actionTypeHandler} className="mt-2 underline duration-300">
               I want to {actionType === 'login' ? 'register' : 'login'}
             </button>
           </div>

@@ -15,10 +15,10 @@ const currentConversationSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(sendMessageOnServer.fulfilled, (state, action)=>{
-           state.conversation = action.payload.data as Conversation; // Add on client after successfully adding on server
+           state.conversation = {...action.payload.data, name: state.conversation.name} as Conversation; // Add on client after successfully adding on server
         })
         .addCase(createConversationAnSendMessageOnServer.fulfilled, (state, action)=>{
-            state.conversation = action.payload.data;
+            state.conversation = {...action.payload.data};
         }) 
     },
 });

@@ -18,7 +18,6 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const userConversations = useSelector((state:RootState)=>state.userConversations.conversations);
   const userData = useSelector((state:RootState)=>state.user.data);
-
   const handleClick = (e:React.MouseEvent<HTMLDivElement>) => {
     const existingConversation = userConversations.find((conv)=>conv.members.find((member)=>member._id === props.user._id));
 
@@ -54,7 +53,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
       <div>
       <b>{props.user.nickname}</b>
       {/* TODO */}
-      <p className='text-xs text-slate-400 group-hover:text-gray-800 duration-300'>Last seen a century ago</p>
+      <p className={`text-xs text-slate-400 group-hover:text-gray-800 duration-300 ${props.user.socketID ? 'group-hover:text-green-400 text-green-500 font-semibold': ''}`}>{props.user.socketID ? 'Online': 'Offline'}</p>
       </div>
     </div>
   );

@@ -70,8 +70,9 @@ const UseEffects = () => {
   }, [dispatch, user._id]);
 
   useEffect(() => {
+    if (user._id)
     dispatch(searchAllUsers());
-  }, [dispatch]);
+  }, [dispatch, user._id]);
 
   useEffect(() => {
     const { global } = notifications;

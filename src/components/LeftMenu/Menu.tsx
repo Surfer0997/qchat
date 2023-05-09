@@ -12,7 +12,6 @@ const Menu = () => {
 
   // USERS SEARCH
   const [searchString, setSearchString] = useState('');
-
   const handleUserSearch = useCallback((str:string) => {
     setSearchString(str);
   }, []);
