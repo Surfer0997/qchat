@@ -9,6 +9,10 @@ import { AppDispatch, RootState } from '@/store/store';
 import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
 import { useRouter } from 'next/router';
+import starDoodleBg from '../../../public/star-doodle-bg.png';
+import scienceDoodleBg from '../../../public/education.webp';
+import neonBg from '../../../public/neonPattern.jpg';
+import curveBg from '../../../public/curvePattern.webp'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -91,7 +95,7 @@ export default function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen justify-center">
+      <main className="flex min-h-screen justify-center" style={{backgroundImage: `url(${neonBg.src})`, backgroundRepeat:'repeat-y', backgroundPosition:'center'}}>
         <Card styles="mt-24">
           <div className="flex flex-col items-center">
             <h1 className="text-4xl">Welcome to QChat!</h1>
