@@ -1,10 +1,11 @@
+import { addSocketToCurrentConv, deleteSocketFromCurrentConv } from "@/store/actions/currentConversationThunk";
 import { addNewSocketUser, addSocketUsers, deleteSocketUser } from "@/store/reducers/otherUsersSlice";
 import { AppDispatch } from "@/store/store";
 import { io } from "socket.io-client";
 
 type SocketUser = {
-    userSocketID: String;
-    userID: String;
+    userSocketID: string;
+    userID: string;
 }
 
 export let socket = io('', {autoConnect:false});
@@ -24,10 +25,12 @@ export const socketInitializer = async (dispatch:AppDispatch) => {
     
     socket.on('user connected', (user:SocketUser)=>{
         dispatch(addNewSocketUser(user));
+        dispatch(addSocketToCurrentConv(user));
     })
 
     socket.on('user disconnected', (user:SocketUser)=>{
         dispatch(deleteSocketUser(user));
+        dispatch(deleteSocketFromCurrentConv(user));
     })
 
     socket.onAny((event:any) => {

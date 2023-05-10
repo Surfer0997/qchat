@@ -1,4 +1,4 @@
-import { Message } from '@/types/types';
+import { Message, SocketUser } from '@/types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
@@ -58,6 +58,42 @@ export const createConversationAnSendMessageOnServer = createAsyncThunk(
       return { data: {...request.data, name: request.data.members.filter((member: any) => member._id !== state.user.data._id)[0].nickname, socketID} };
     } catch (error) {
       dispatch(errorGlobal('Error while sending a message'));
+      throw error;
+    }
+  }
+);
+
+
+export const addSocketToCurrentConv = createAsyncThunk(
+  'currentConversation/addSocketToCurrentConv',
+  async ( user: SocketUser, { dispatch, getState }) => {
+  
+    try {
+      const state = getState() as RootState;
+      const currentConv = state.currentConversation.conversation;
+      if (currentConv.members[0]._id === user.userID || currentConv.members[1]._id === user.userID) {
+        return undefined;
+      }
+      return user.userSocketID;
+    } catch (error) {
+      dispatch(errorGlobal('Error while setting socket in current conversation'));
+      throw error;
+    }
+  }
+);
+
+export const deleteSocketFromCurrentConv = createAsyncThunk(
+  'currentConversation/deleteSocketFromCurrentConv',
+  async ( user: SocketUser, { dispatch, getState }) => {
+    try {
+      const state = getState() as RootState;
+      const currentConv = state.currentConversation.conversation;
+      if (currentConv.members[0]._id === user.userID || currentConv.members[1]._id === user.userID) {
+        return user.userSocketID;
+      }
+      return undefined;
+    } catch (error) {
+      dispatch(errorGlobal('Error while setting socket in current conversation'));
       throw error;
     }
   }

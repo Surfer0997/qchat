@@ -26,8 +26,8 @@ export interface Conversation {
   socketID?:string;
 }
 export type SocketUser = {
-  userSocketID: String;
-  userID: String;
+  userSocketID: string;
+  userID: string;
 }
 
 export type OtherUser = {

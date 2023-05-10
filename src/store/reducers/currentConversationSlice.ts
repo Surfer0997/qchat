@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createConversationAnSendMessageOnServer, sendMessageOnServer } from "../actions/currentConversationThunk";
+import { addSocketToCurrentConv, createConversationAnSendMessageOnServer, deleteSocketFromCurrentConv, sendMessageOnServer } from "../actions/currentConversationThunk";
 import { Conversation } from "@/types/types";
 
 const currentConversationSlice = createSlice({
@@ -11,7 +11,8 @@ const currentConversationSlice = createSlice({
         },
         sendMessageOnClient(state, action) {
             state.conversation.messages.push(action.payload);
-        }
+        },
+
     },
     extraReducers(builder) {
         builder.addCase(sendMessageOnServer.fulfilled, (state, action)=>{
@@ -19,7 +20,13 @@ const currentConversationSlice = createSlice({
         })
         .addCase(createConversationAnSendMessageOnServer.fulfilled, (state, action)=>{
             state.conversation = {...action.payload.data};
-        }) 
+        })
+        .addCase(addSocketToCurrentConv.fulfilled, (state, action)=>{
+            state.conversation.socketID = action.payload;
+        })
+        .addCase(deleteSocketFromCurrentConv.fulfilled, (state, action)=>{
+            state.conversation.socketID = action.payload;
+        })
     },
 });
 
