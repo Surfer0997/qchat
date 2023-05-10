@@ -44,6 +44,5 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "tailwind-scrollbar": "^3.0.0"
   }
 }
