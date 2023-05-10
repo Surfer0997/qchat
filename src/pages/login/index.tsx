@@ -9,7 +9,7 @@ import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
 import { useRouter } from 'next/router';
 import neonBg from '../../../public/neonPattern.jpg';
-import icon from '../../public/favicon.ico'
+import icon from '../../../public/favicon.ico'
 
 export default function Login() {
 
@@ -91,7 +91,7 @@ export default function Login() {
         <link rel="icon" href={icon.src} />
       </Head>
       <main className="flex min-h-screen justify-center" style={{backgroundImage: `url(${neonBg.src})`, backgroundRepeat:'repeat-y', backgroundPosition:'center'}}>
-        <Card styles="mt-24">
+        <Card styles="mt-24 max-sm:w-5/6 max-sm:text-center">
           <div className="flex flex-col items-center">
             <h1 className="text-4xl">Welcome to QChat!</h1>
             <LoginPageInput inputConfig={{ type: 'text' }} style="mt-5" ref={nicknameInput} />

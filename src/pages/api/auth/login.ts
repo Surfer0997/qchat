@@ -37,7 +37,7 @@ export default async function handler(
             "No user with this email, but you exist and this is beautiful"
           );
         }
-
+        console.log(user.comparePassword(password));
         if (!(user.comparePassword(password))) {
           throw new Error("Bad password");
         }
