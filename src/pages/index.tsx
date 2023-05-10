@@ -4,9 +4,10 @@ import Menu from '@/components/LeftMenu/Menu';
 import ChatWindow from '@/components/ChatWindow/ChatWindow';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import icon from '../../public/favicon.ico'
+import bg from '../../public/dark-doodle.webp'
 
 export default function Home() {
   const userId = useSelector((state: RootState) => state.user.data._id);
@@ -16,11 +17,15 @@ export default function Home() {
     if (!userId) router.push('/login')
   }, [userId, router])
 
+
+ // MOBILE SWITCH SCREENS
+ const isMenuOpen = useSelector((state:RootState)=>state.layout.isMenuOpen);
+
   if (!userId) {
     return null;
   }
 
- 
+
   return (
     <>
       <Head>
@@ -29,10 +34,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={icon.src} />
       </Head>
-      <main className="flex">
+      <main className="flex" style={{ backgroundImage: `url(${bg.src})`, backgroundPosition:'center', backgroundSize:'cover'}}>
         <Menu />
 
-        <div className="w-8/12 flex flex-col h-screen relative">
+        <div className={`w-8/12 flex flex-col h-screen relative max-sm:${isMenuOpen ? 'hidden' : 'w-full' + ''}`}>
           <ChatHeader />
           <ChatWindow />
         </div>

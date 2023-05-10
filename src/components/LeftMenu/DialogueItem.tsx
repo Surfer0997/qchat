@@ -1,5 +1,6 @@
 import { randomNiceColor } from '@/lib/tools/colors';
 import { setAsCurrentConversation } from '@/store/reducers/currentConversationSlice';
+import { setIsMenuOpen } from '@/store/reducers/layoutSlice';
 import { AppDispatch, RootState } from '@/store/store';
 import { Conversation } from '@/types/types';
 import Image from 'next/image';
@@ -44,11 +45,15 @@ const DialogueItem = (props: DialogueItemProps) => {
     state.otherUsers.users.filter(user => user._id === targetUserId)
   )[0];
   // pass socket
+  const handleClick = () => {
+    dispatch(setAsCurrentConversation({ ...props.conversation, socketID: targetUser?.socketID }));
+    dispatch(setIsMenuOpen(false));
+  }
 
   return (
     <div
       className="bg-slate-50 h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300"
-      onClick={() => dispatch(setAsCurrentConversation({ ...props.conversation, socketID: targetUser?.socketID }))}
+      onClick={handleClick}
     >
       <div className={`relative duration-300 ${targetUser?.socketID && 'after:absolute after:w-2 after:h-2 after:rounded-full after:bg-green-500 after:top-1 after:right-0'}`}>
         <Image

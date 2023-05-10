@@ -1,5 +1,6 @@
 import { randomNiceColor } from '@/lib/tools/colors';
 import { setAsCurrentConversation } from '@/store/reducers/currentConversationSlice';
+import { setIsMenuOpen } from '@/store/reducers/layoutSlice';
 import { AppDispatch, RootState } from '@/store/store';
 import { Message } from '@/types/types';
 import Image from 'next/image';
@@ -36,7 +37,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
     };
 
     dispatch(setAsCurrentConversation(existingConversation ? {...existingConversation, socketID: props.user?.socketID} : mockNewCurrentConversation));
-    
+    dispatch(setIsMenuOpen(false));
   }
 
   return (

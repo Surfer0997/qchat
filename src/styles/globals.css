@@ -116,11 +116,27 @@ a {
   width: .5rem;
 }
 .chat-window::-webkit-scrollbar-track {
- background: white;
+ background: transparent;
 }
 .chat-window::-webkit-scrollbar-thumb {
   background: #1B1B1B;
 }
+
+@-webkit-keyframes slideLeft {
+  100% { left: 0; }
+}
+
+@keyframes slideLeft {
+  100% { left: 0; }
+}
+@-webkit-keyframes slideRight {
+  100% { right: 0; }
+}
+
+@keyframes slideRight {
+  100% { right: 0; }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

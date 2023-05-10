@@ -63,7 +63,7 @@ const ChatInput = () => {
   };
 
   return (
-    <section className="chat-input w-2/3 flex justify-end mb-2 items-center">
+    <section className="chat-input w-2/3 flex justify-end mb-2 items-center max-sm:w-5/6">
       <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center shadow-2xl" onClick={()=>inputRef.current?.focus()}>
         <div
           className="h-auto inline-block outline-none overflow-hidden"
@@ -75,7 +75,7 @@ const ChatInput = () => {
       </div>
 
       <button
-        className="rounded-full bg-cyan-500 ml-2 flex justify-center items-center"
+        className="rounded-full ml-2 flex justify-center items-center"
         onClick={handleSendMessageFromButton}
       >
         <Image src={PaperPlane} width={52} height={48} alt="Send message" className="m-2 mr-3 w-8 h-8"></Image>

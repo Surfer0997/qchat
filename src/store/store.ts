@@ -4,6 +4,7 @@ import notificationsReducer from "./reducers/notificationsSlice";
 import otherUsersReducer from "./reducers/otherUsersSlice";
 import userConversationsReducer from "./reducers/userConversationsSlice";
 import currentConversationReducer from "./reducers/currentConversationSlice";
+import layoutReducer from "./reducers/layoutSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         notifications: notificationsReducer,
         otherUsers: otherUsersReducer,
         userConversations: userConversationsReducer,
-        currentConversation: currentConversationReducer
+        currentConversation: currentConversationReducer,
+        layout: layoutReducer
     }
 });
 

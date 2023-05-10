@@ -17,7 +17,7 @@ const ChatBubblesContainer = () => {
 
   return (
     <div
-      className="pt-12"
+      className="pt-12 max-sm:mx-auto"
       style={{
         width: 'calc(100% - 52px)',
       }}
