@@ -31,14 +31,12 @@ export default async function handler(
         // const { nickname, password } = JSON.parse(req.body);
         const { nickname, password } = req.body;
         const user = await userModel.findOne({ nickname });
-
         if (!user) {
           throw new Error(
             "No user with this email, but you exist and this is beautiful"
           );
         }
-        console.log(user.comparePassword(password));
-        if (!(user.comparePassword(password))) {
+        if (!await user.comparePassword(password)) {
           throw new Error("Bad password");
         }
         // setCookie("x-access-token", user.generateAuthToken(), {
