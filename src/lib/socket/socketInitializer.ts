@@ -18,6 +18,7 @@ export const socketInitializer = async (dispatch:AppDispatch) => {
         const otherUsers = users.filter((user:SocketUser)=>{
             return user.userSocketID !== socket.id;
         });
+        console.log('on users');
         dispatch(addSocketUsers(otherUsers));
     });
     

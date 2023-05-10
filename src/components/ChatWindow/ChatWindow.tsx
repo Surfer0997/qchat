@@ -3,7 +3,7 @@ import ChatBubblesContainer from './ChatBubblesContainer';
 import ChatInput from './ChatInput';
 import { RootState } from '@/store/store';
 import { NoConversation } from './NoConversation';
-import bg from '../../../public/education.webp'
+import bg from '../../../public/dark-doodle.webp'
 const ChatWindow = () => {
   const currentConversation = useSelector((state: RootState) => state.currentConversation.conversation);
   const convExists = currentConversation._id;
@@ -12,10 +12,10 @@ const ChatWindow = () => {
   return (
     <div
       className="chat-main flex flex-col items-center"
-      style={{ height: '100%', backgroundImage: `url(${bg.src})`, backgroundRepeat:'repeat-y', backgroundPosition:'center'}}
+      style={{ height: '100%', backgroundImage: `url(${bg.src})`, backgroundPosition:'center', backgroundSize:'cover'}}
     >
       <section className="w-full h-auto flex justify-center mb-2 overflow-y-auto mt-auto chat-window">
-        <div className="chat-bubbles w-2/3 mb-2 rounded-2xl h-fit pb-2" style={{backgroundColor:'#1B1B1B'}}>
+        <div className="chat-bubbles w-2/3 mb-2 rounded-lg h-fit pb-2" style={{backgroundColor:'transparent'}}>
           <ChatBubblesContainer />
         </div>
       </section>
