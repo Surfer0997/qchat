@@ -39,11 +39,11 @@ export default async function handler(
         if (!await user.comparePassword(password)) {
           throw new Error("Bad password");
         }
-        setCookie("x-access-token", user.generateAuthToken(), {
-          req,
-          res,
-          maxAge: 60 * 60 * 24,
-        });
+        // setCookie("x-access-token", user.generateAuthToken(), {
+        //   req,
+        //   res,
+        //   maxAge: 60 * 60 * 24,
+        // });
         res.status(200).json(user); // valid email & password => user is logged in
         break;
       default:
