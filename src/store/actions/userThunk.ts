@@ -45,7 +45,6 @@ export const getAuthHeader = () => {
 export const isAuth = createAsyncThunk('users/isAuth', async (_, {dispatch}) => {
   try {
     const request = await axios.get('/api/auth/login', getAuthHeader());
-    dispatch(successGlobal('Logged in successfully!'));
     return { data: request.data, auth: true }; // user
   } catch (error) {
     return { data: {}, auth: false }; // user
