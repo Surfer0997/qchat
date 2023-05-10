@@ -7,5 +7,6 @@ module.exports = {
         // 'doodle-pattern': "url('public/star-doodle-bg.png')",
       },
     },
-  }
+  },
+  plugins: [require('tailwind-scrollbar')],
 };
