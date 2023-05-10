@@ -22,7 +22,7 @@ const Menu = () => {
  const isMenuOpen = useSelector((state:RootState)=>state.layout.isMenuOpen);
 
   return (
-    <div className={`w-4/12 h-screen overflow-auto max-sm:${isMenuOpen ? 'w-full' : 'hidden' + ''}`} style={{backgroundColor:'rgba(27,27,27, 0.95)'}}>
+    <div className={`w-4/12 h-screen overflow-auto max-sm:${isMenuOpen ? 'w-full' : 'hidden'}`} style={{backgroundColor:'rgba(27,27,27, 0.95)', animation:'slideLeft .5s forwards'}}>
       <MenuHeader handleListDisplay={handleListDisplay} isSearchEnabled={isSearchEnabled} handleUserSearch={handleUserSearch}/>
       {isSearchEnabled ? <SearchedUsers searchString={searchString}/> : <DialogueList/>}
     </div>

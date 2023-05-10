@@ -37,7 +37,7 @@ export default function Home() {
       <main className="flex" style={{ backgroundImage: `url(${bg.src})`, backgroundPosition:'center', backgroundSize:'cover'}}>
         <Menu />
 
-        <div className={`w-8/12 flex flex-col h-screen relative max-sm:${isMenuOpen ? 'hidden' : 'w-full' + ''}`}>
+        <div className={`w-8/12 flex flex-col h-screen relative max-sm:${isMenuOpen ? 'hidden' : 'w-full'}`} style={{animation:`${window.innerWidth <= 600 ? 'slide .5s forwards' : ''}`}}>
           <ChatHeader />
           <ChatWindow />
         </div>

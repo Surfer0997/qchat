@@ -123,18 +123,23 @@ a {
 }
 
 @-webkit-keyframes slideLeft {
-  100% { left: 0; }
+  0% {margin-left: -100px; }
+  100% { margin-left: 0; }
 }
 
 @keyframes slideLeft {
-  100% { left: 0; }
-}
-@-webkit-keyframes slideRight {
-  100% { right: 0; }
+  0% {margin-left: -100px; }
+  100% { margin-left: 0; }
 }
 
-@keyframes slideRight {
-  100% { right: 0; }
+@-webkit-keyframes slide {
+  0% {transform: translateX(100px); }
+  100% { transform: translateX(0px);}
+}
+
+@keyframes slide {
+  0% {transform: translateX(100px); }
+  100% { transform: translateX(0px);}
 }
 
 @media (prefers-color-scheme: dark) {
