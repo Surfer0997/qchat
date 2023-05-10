@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { Inter } from 'next/font/google';
 import Card from '../../components/UI/Card';
 import { useRef, useState, useEffect } from 'react';
 import LoginPageInput from '@/components/UI/LoginPageInput';
@@ -10,9 +9,6 @@ import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
 import { useRouter } from 'next/router';
 import neonBg from '../../../public/neonPattern.jpg';
-
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function Login() {
 
