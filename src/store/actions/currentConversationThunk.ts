@@ -93,7 +93,7 @@ export const deleteSocketFromCurrentConv = createAsyncThunk(
       }
       return undefined;
     } catch (error) {
-      dispatch(errorGlobal('Error while setting socket in current conversation'));
+      dispatch(errorGlobal('Error while deleting socket from current conversation'));
       throw error;
     }
   }

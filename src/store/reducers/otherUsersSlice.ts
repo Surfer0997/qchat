@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { searchAllUsers } from '../actions/otherUsersThunk';
 import { SocketUser } from '@/types/types';
+
 interface IOtherUsersSlice {
   users: { _id: string; nickname: string; socketID?: string }[];
   loading: boolean;
@@ -39,9 +40,20 @@ export const otherUsersSlice = createSlice({
     },
     addNewSocketUser(state, action) {
       // action.payload = user as SocketUser
+      let hasToAddNewRegisteredUser = true;
       state.users = state.users.map(user => {
+        if (user._id === action.payload.userID) {
+          hasToAddNewRegisteredUser = false;
+        }
         return user._id === action.payload.userID ? { ...user, socketID: action.payload.userSocketID } : user;
       });
+      if (hasToAddNewRegisteredUser) {
+        state.users.push({
+          _id: action.payload.userID,
+          nickname: action.payload.userNickname,
+          socketID: action.payload.userSocketID,
+        });
+      }
     },
     deleteSocketUser(state, action) {
       // action.payload = user as SocketUser
@@ -52,20 +64,6 @@ export const otherUsersSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      // .addCase(searchUsersByString.pending, (state)=>{
-      //     state.loading = true;
-      // })
-      // .addCase(searchUsersByString.fulfilled, (state, action) => {
-      //     state.loading = false;
-      //     state.allUsersAreDisplayed = false;
-      //     state.users = action.payload.data;
-      //   })
-      //   .addCase(searchUsersByString.rejected, (state) => {
-      //     state.loading = false;
-      //   })
-      //   .addCase(searchAllUsers.pending, (state)=>{
-      //     state.loading = true;
-      // })
       .addCase(searchAllUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.users = action.payload.data;

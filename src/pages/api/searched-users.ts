@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
         case 'GET': // route to get users from search
-        const allUsers = await userModel.find();
+        const allUsers = await userModel.find().select('nickname');
         if (!allUsers) {
           throw new Error('No users found, try other letters!');
         }

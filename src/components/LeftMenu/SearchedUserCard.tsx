@@ -54,7 +54,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
       <div>
       <b>{props.user.nickname}</b>
       {/* TODO */}
-      <p className={`text-xs text-slate-400 group-hover:text-gray-800 duration-300 ${props.user.socketID ? 'group-hover:text-green-400 text-green-500 font-semibold': ''}`}>{props.user.socketID ? 'Online': 'Offline'}</p>
+      <p className={`text-xs text-slate-400 group-hover:text-gray-800 duration-300 ${props.user.socketID ? 'group-hover:text-green-300 text-green-400 font-semibold': ''}`}>{props.user.socketID ? 'Online': 'Offline'}</p>
       </div>
     </div>
   );

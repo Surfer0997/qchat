@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { isAuth, loginUser, registerUser } from "../actions/userThunk";
 import { mongoUser } from "@/types/types";
 import { removeTokenFromCookie } from "../actions/userThunk";
+import { socket } from "@/lib/socket/socketInitializer";
 
 const DEFAULT_USER_STATE = {
   loading: false,
@@ -40,6 +41,7 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload.data;
+        // socket.emit('user registered', action.payload.data)
         state.auth = true;
       })
       .addCase(registerUser.rejected, (state) => {

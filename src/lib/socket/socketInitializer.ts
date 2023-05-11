@@ -9,7 +9,7 @@ type SocketUser = {
 }
 
 export let socket = io('', {autoConnect:false});
-/////////////////// FIX TYPES
+
 export const socketInitializer = async (dispatch:AppDispatch) => {
     // We just call it because we don't need anything else out of it
     await fetch("/api/socket/socket");

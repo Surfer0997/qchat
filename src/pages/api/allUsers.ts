@@ -9,11 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     switch (req.method) {
       case 'GET': // route to get users from search
-        const users = await userModel.find(); // 'i' option == case insensitive
+        const users = await userModel.find() // 'i' option == case insensitive
         if (!users) {
           throw new Error('No users found, try other letters!');
         }
-        
         res.status(200).json(users.map((user)=>{
             return {
                 nickname: user.nickname,

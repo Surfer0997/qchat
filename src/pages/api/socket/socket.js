@@ -14,11 +14,14 @@ export default function SocketHandler(req, res) {
 
   io.use((socket, next) => {
     const userID = socket.handshake.auth.userID;
+    const nickname = socket.handshake.auth?.nickname;
     if (!userID) {
       return next(new Error("invalid username"));
     }
     // @ts-ignore
     socket.userID = userID;
+    if (nickname)
+    socket.nickname = nickname;
     next();
   });
 
@@ -38,6 +41,7 @@ export default function SocketHandler(req, res) {
     socket.broadcast.emit("user connected", {
       userSocketID: socket.id,
       userID: socket.userID,
+      userNickname: socket.nickname
     });
 
 
@@ -53,7 +57,11 @@ export default function SocketHandler(req, res) {
         userID: socket.userID,
       });
     });
+
+    
   };
+
+ 
 
   // Define actions inside
   io.on("connection", onConnection);

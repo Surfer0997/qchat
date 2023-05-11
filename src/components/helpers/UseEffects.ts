@@ -59,7 +59,7 @@ const UseEffects = () => {
       .unwrap()
       .then(() => {
         socketInitializer(dispatch).then(() => {
-          socket.auth = { userID: user._id };
+          socket.auth = { userID: user._id, nickname: user.nickname };
           socket.connect();
         });
       });
@@ -67,7 +67,7 @@ const UseEffects = () => {
     return () => {
       socket.disconnect();
     };
-  }, [dispatch, user._id]);
+  }, [dispatch, user._id, user.nickname]);
 
   useEffect(() => {
     if (user._id)
