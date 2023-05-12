@@ -64,7 +64,7 @@ const ChatInput = () => {
 
   return (
     <section className="chat-input w-2/3 flex justify-end mb-2 items-center max-sm:w-5/6">
-      <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center shadow-2xl" onClick={()=>inputRef.current?.focus()}>
+      <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center shadow-2xl dark:bg-neutral-800" onClick={()=>inputRef.current?.focus()}>
         <div
           className="h-auto inline-block outline-none overflow-hidden"
           style={{ width: '90%', minHeight: '48px', maxHeight: '24rem' }}

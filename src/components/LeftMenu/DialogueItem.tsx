@@ -44,6 +44,7 @@ const DialogueItem = (props: DialogueItemProps) => {
   const targetUser = useSelector((state: RootState) =>
     state.otherUsers.users.filter(user => user._id === targetUserId)
   )[0];
+
   // pass socket
   const handleClick = () => {
     dispatch(setAsCurrentConversation({ ...props.conversation, socketID: targetUser?.socketID }));
@@ -52,7 +53,7 @@ const DialogueItem = (props: DialogueItemProps) => {
 
   return (
     <div
-      className="bg-slate-50 h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300"
+      className="bg-slate-50 h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300 dark:bg-neutral-800 dark:border-2 dark:border-neutral-700"
       onClick={handleClick}
     >
       <div className={`relative duration-300 ${targetUser?.socketID && 'after:absolute after:w-2 after:h-2 after:rounded-full after:bg-green-500 after:top-1 after:right-0'}`}>

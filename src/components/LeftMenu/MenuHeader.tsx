@@ -50,7 +50,7 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
     >
       {showMenu && (
         <div className="absolute h-80 duration-300 z-20 max-sm:h-60 w-3/5 max-sm:w-2/5" style={{ top: '2.5rem', left: '0rem'}}>
-          <div className="absolute w-5/6 h-72 bg-white rounded-md border-cyan-400 shadow-2xl flex flex-col p-2 pt-4 left-4 top-2 duration-300 max-sm:h-60 max-sm:w-full">
+          <div className="absolute w-5/6 h-72 bg-white dark:bg-neutral-600 dark:border-2 dark:border-neutral-400 rounded-md border-cyan-400 shadow-2xl flex flex-col p-2 pt-4 left-4 top-2 duration-300 max-sm:h-60 max-sm:w-full">
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md transition-all duration-200"
               onClick={() => dispatch(logOut())}

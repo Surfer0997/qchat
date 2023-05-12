@@ -6,13 +6,11 @@ interface IOtherUsersSlice {
   users: { _id: string; nickname: string; socketID?: string }[];
   loading: boolean;
   allUsersAreDisplayed: boolean;
-  socketUsers: SocketUser[]; // FIX
 }
 const initialState: IOtherUsersSlice = {
   users: [],
   loading: false,
   allUsersAreDisplayed: false,
-  socketUsers: [],
 };
 
 export const otherUsersSlice = createSlice({

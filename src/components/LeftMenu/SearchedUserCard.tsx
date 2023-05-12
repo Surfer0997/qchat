@@ -41,7 +41,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
   }
 
   return (
-    <div className="group h-16 w-5/6 m-auto duration-300  flex items-center gap-4 hover:rounded-xl hover:bg-slate-100 hover:bg-opacity-80 text-left" onClick={handleClick}>
+    <div className="group h-16 w-5/6 m-auto duration-300  flex items-center gap-4 hover:rounded-xl hover:bg-slate-100 hover:bg-opacity-80 text-left dark:bg-neutral-700 dark:hover:bg-neutral-600" onClick={handleClick}>
       <Image
         src={`https://ui-avatars.com/api/?length=1&background=${randomNiceColor(props.user.nickname)}&color=fff&name=${
           props.user.nickname
@@ -54,7 +54,7 @@ const SearchedUserCard = (props: SearchedUserCardProps) => {
       <div>
       <b>{props.user.nickname}</b>
       {/* TODO */}
-      <p className={`text-xs text-slate-400 group-hover:text-gray-800 duration-300 ${props.user.socketID ? 'group-hover:text-green-300 text-green-400 font-semibold': ''}`}>{props.user.socketID ? 'Online': 'Offline'}</p>
+      <p className={`text-xs text-slate-400 group-hover:text-gray-800 duration-300 dark:text-neutral-500  dark:group-hover:text-neutral-300 ${props.user.socketID ? 'group-hover:text-green-300 text-green-400 font-semibold': ''}`}>{props.user.socketID ? 'Online': 'Offline'}</p>
       </div>
     </div>
   );

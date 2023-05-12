@@ -8,12 +8,13 @@ import { setIsMenuOpen } from '@/store/reducers/layoutSlice';
 const ChatHeader = () => {
   const currentConversation = useSelector((state: RootState) => state.currentConversation.conversation);
   const dispatch = useDispatch<AppDispatch>();
-  if (!currentConversation._id) return null;
+  if (!currentConversation._id) return null; 
+
 
   return (
     <div
-      className="chat-header h-12 w-full absolute flex justify-start gap-4 items-center"
-      style={{ backgroundColor: 'rgba(255,193,7, 0.95)' }}
+      className="chat-header h-12 w-full absolute flex justify-start gap-4 items-center dark:bg-cyan-900"
+      style={{ background: `${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'linear-gradient(45deg, rgba(35,175,155,1) 0%, rgba(21,159,188,1) 20%, rgba(79,111,157,1) 60%, rgba(133,65,104,1) 100%)' : 'rgba(255,193,7, 0.95)'}` }}
     >
       <button className='hidden max-sm:block'>
         <Image
