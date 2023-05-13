@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
 import { logOut } from '@/store/reducers/userSlice';
+import { clearCurrentConversation } from '@/store/reducers/currentConversationSlice';
 
 interface MenuHeaderPorps {
   handleListDisplay: (val: boolean) => void;
@@ -42,6 +43,12 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
       handleListDisplay(false);
     }
   };
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    dispatch(clearCurrentConversation());
+  }
+  
   return (
     <div className='fixed w-4/12 pb-2 z-30 max-sm:w-full' style={{backgroundColor:'rgba(27,27,27, 0.95)'}}>
 
@@ -56,7 +63,7 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
           <div className="absolute w-5/6 h-72 bg-white dark:bg-neutral-600 dark:border-2 dark:border-neutral-400 rounded-md border-cyan-400 shadow-2xl flex flex-col p-2 pt-4 left-4 top-2 duration-300 max-sm:h-60 max-sm:w-full">
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md transition-all duration-200"
-              onClick={() => dispatch(logOut())}
+              onClick={handleLogout}
             >
               Log out
             </button>

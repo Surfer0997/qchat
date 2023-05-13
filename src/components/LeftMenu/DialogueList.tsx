@@ -18,7 +18,7 @@ const DialogueList = () => {
   }, [dispatch, userId]);
   if (loading)
     return (
-      <div className='w-full flex justify-center mt-8'>
+      <div className='w-full flex justify-center mt-12'>
         <Image width={50} height={50} src={LoaderYellow} alt="Loading..." />
       </div>
     );

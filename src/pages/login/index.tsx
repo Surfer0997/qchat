@@ -3,7 +3,7 @@ import Card from '../../components/UI/Card';
 import { useRef, useState, useEffect } from 'react';
 import LoginPageInput from '@/components/UI/LoginPageInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, registerUser } from '@/store/actions/userThunk';
+import { loginUser, registerUser, removeTokenFromCookie } from '@/store/actions/userThunk';
 import { AppDispatch, RootState } from '@/store/store';
 import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
@@ -41,6 +41,8 @@ export default function Login() {
 
   const submitHandler = () => {
     if (user.loading) return;
+
+    removeTokenFromCookie();
 
     const nickname = nicknameInput.current?.value;
     const password = passwordInput.current?.value;

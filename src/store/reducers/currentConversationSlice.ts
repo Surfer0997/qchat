@@ -12,6 +12,9 @@ const currentConversationSlice = createSlice({
         sendMessageOnClient(state, action) {
             state.conversation.messages.push(action.payload);
         },
+        clearCurrentConversation(state) {
+            state.conversation = {} as Conversation;
+        }
 
     },
     extraReducers(builder) {
@@ -30,5 +33,5 @@ const currentConversationSlice = createSlice({
     },
 });
 
-export const {setAsCurrentConversation, sendMessageOnClient} = currentConversationSlice.actions;
+export const {setAsCurrentConversation, sendMessageOnClient, clearCurrentConversation} = currentConversationSlice.actions;
 export default currentConversationSlice.reducer;
