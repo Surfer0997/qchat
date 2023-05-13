@@ -54,7 +54,6 @@ const UseEffects = () => {
 
   useEffect(() => {
     // SIGN IN WITH COOKIE
-
     dispatch(isAuth())
       .unwrap()
       .then(() => {

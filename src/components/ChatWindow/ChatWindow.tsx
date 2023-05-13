@@ -3,12 +3,18 @@ import ChatBubblesContainer from './ChatBubblesContainer';
 import ChatInput from './ChatInput';
 import { RootState } from '@/store/store';
 import { NoConversation } from './NoConversation';
+import {useEffect} from 'react';
 
 const ChatWindow = () => {
   const currentConversation = useSelector((state: RootState) => state.currentConversation.conversation);
   const convExists = currentConversation._id;
-  if (!currentConversation.messages) return <NoConversation />;
+  
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  }, []);
 
+  if (!currentConversation.messages) return <NoConversation />;
+  
   return (
     <div
       className="chat-main flex flex-col items-center"
