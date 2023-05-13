@@ -43,7 +43,10 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
     }
   };
   return (
-    <div
+    <div className='fixed w-4/12 pb-2 z-30 max-sm:w-full' style={{backgroundColor:'rgba(27,27,27, 0.95)'}}>
+
+
+<div
       className="searchBar flex justify-center items-center gap-4 relative"
       style={{ height: '40px' }}
       onMouseLeave={setShowMenu.bind(null, false)}
@@ -78,6 +81,7 @@ export const MenuHeader = ({ handleUserSearch, isSearchEnabled, handleListDispla
         onClick={setShowMenu.bind(null, false)}
         onChange={handleSearch}
       />
+    </div> 
     </div>
   );
 };

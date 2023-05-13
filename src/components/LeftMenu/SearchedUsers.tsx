@@ -35,7 +35,7 @@ const SearchedUsers = ({searchString}:ISearchedUsers) => {
   }
 
   return (
-    <div className="mt-2 pt-4 bg-white w-5/6 m-auto text-center dark:bg-neutral-700" style={{ maxHeight: 'calc(100% - 4rem)', overflow:'auto'}}>
+    <div className="mt-12 pt-4 bg-white w-5/6 m-auto text-center dark:bg-neutral-700" style={{ maxHeight: 'calc(100% - 4rem)', overflow:'auto'}}>
       {shownUsers.map((user)=><SearchedUserCard key={user._id} user={user} />)}
 
       

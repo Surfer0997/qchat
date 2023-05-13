@@ -23,7 +23,7 @@ const DialogueList = () => {
       </div>
     );
   return (
-    <div className="mt-2">
+    <div className="mt-12">
       {conversationsToDisplay[0]
         ? conversationsToDisplay
             .sort((a, b) => b.order - a.order)

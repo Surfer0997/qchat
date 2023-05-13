@@ -64,7 +64,7 @@ const DialogueItem = (props: DialogueItemProps) => {
           height={64}
           width={64}
           alt={props.conversation.name}
-          className="ml-2 block "
+          className="ml-2 block"
         />
       </div>
       <div className="ml-2 flex flex-col overflow-hidden">
