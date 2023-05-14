@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Card from '../../components/UI/Card';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, SetStateAction, useCallback } from 'react';
 import LoginPageInput from '@/components/UI/LoginPageInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser, removeTokenFromCookie } from '@/store/actions/userThunk';
@@ -9,24 +9,32 @@ import { errorGlobal } from '@/store/reducers/notificationsSlice';
 import { PreventExtraSignIn } from '@/lib/HOC/PreventExtraSignIn';
 import { useRouter } from 'next/router';
 import neonBg from '../../../public/neonPattern.jpg';
-import icon from '../../../public/favicon.ico'
+import icon from '../../../public/favicon.ico';
 
 export default function Login() {
-
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user);
 
-    // Prevent extra sign in TODO TEST
-    const router = useRouter();
+  // Prevent extra sign in TODO TEST
+  const router = useRouter();
 
-    useEffect(()=>{
-      if (user.data._id) router.push('/')
-    }, [user.data._id, router]);
-
+  useEffect(() => {
+    if (user.data._id) router.push('/');
+  }, [user.data._id, router]);
 
   const [actionType, setActionType] = useState<'login' | 'register'>('login');
   const actionTypeHandler = () => {
     setActionType(prevState => (prevState === 'login' ? 'register' : 'login'));
+    setNickInputError({
+      error: false,
+      msg: '',
+      touched: false,
+    });
+    setPassInputError({
+      error: false,
+      msg: '',
+      touched: false,
+    });
   };
 
   const nicknameInput = useRef<HTMLInputElement>(null);
@@ -39,6 +47,54 @@ export default function Login() {
     }
   };
 
+  // VALIDATION
+  const [nickInputError, setNickInputError] = useState({
+    error: false,
+    msg: '',
+    touched: false,
+  });
+  const [passInputError, setPassInputError] = useState({
+    error: false,
+    msg: '',
+    touched: false,
+  });
+
+  const validate = useCallback(() => {
+    const nickname = nicknameInput.current?.value;
+    const password = passwordInput.current?.value;
+    // VALIDATION
+    if (nickname?.length || nickname?.length === 0)
+      if (nickname?.length < 3 && nickInputError.touched) {
+        setNickInputError(prev => {
+          return { ...prev, error: true, msg: 'Nickname must be at least 3 symbols long!' };
+        });
+      }
+
+    if (password?.length || password?.length === 0)
+      if (password?.length < 3 && passInputError.touched) {
+        setPassInputError(prev => {
+          return { ...prev, error: true, msg: 'Password must be at least 3 symbols long!' };
+        });
+      }
+  }, [nickInputError.touched, passInputError.touched]);
+  useEffect(() => {
+    validate();
+  }, [validate]);
+  const handleBlur = (
+    cb: (
+      value: SetStateAction<{
+        error: boolean;
+        msg: string;
+        touched: boolean;
+      }>
+    ) => void
+  ) => {
+    cb(() => {
+      return { touched: true, error: false, msg: '' };
+    });
+    validate();
+  };
+
   const submitHandler = () => {
     if (user.loading) return;
 
@@ -47,6 +103,8 @@ export default function Login() {
     const nickname = nicknameInput.current?.value;
     const password = passwordInput.current?.value;
 
+    validate();
+    if (!nickInputError.error) if (!passInputError.error)
     switch (actionType) {
       case 'login':
         if (nickname && password) {
@@ -60,15 +118,15 @@ export default function Login() {
           dispatch(errorGlobal('Error while signing in'));
         }
         break;
-        case 'register':
-          if (nickname && password) {
+      case 'register':
+        if (nickname && password) {
           dispatch(
             registerUser({
               nickname,
               password,
             })
-            );
-          } else {
+          );
+        } else {
           dispatch(errorGlobal('Error while creating new user'));
         }
 
@@ -76,11 +134,11 @@ export default function Login() {
       default:
         throw new Error('Bad request');
     }
-
-    clearInputs();
+    if (!nickInputError.error) if (!passInputError.error) clearInputs();
   };
 
-  if (user.data._id) { // Prevent extra sign in
+  if (user.data._id) {
+    // Prevent extra sign in
     return null;
   }
 
@@ -92,14 +150,35 @@ export default function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={icon.src} />
       </Head>
-      <main className="flex min-h-screen justify-center" style={{backgroundImage: `url(${neonBg.src})`, backgroundRepeat:'repeat-y', backgroundPosition:'center'}}>
+      <main
+        className="flex min-h-screen justify-center"
+        style={{ backgroundImage: `url(${neonBg.src})`, backgroundRepeat: 'repeat-y', backgroundPosition: 'center' }}
+      >
         <Card styles="mt-24 max-sm:w-5/6 max-sm:text-center dark:bg-black dark:border dark:border-white dark:border-2">
           <div className="flex flex-col items-center">
             <h1 className="text-4xl">Welcome to QChat!</h1>
-            <LoginPageInput inputConfig={{ type: 'text' }} style="mt-5" ref={nicknameInput} />
-            <LoginPageInput inputConfig={{ type: 'password' }} style="mt-3" ref={passwordInput} />
+            <LoginPageInput
+              inputConfig={{ type: 'text' }}
+              style={`mt-5 ${nickInputError.error ? 'border-red-500' : ''}`}
+              ref={nicknameInput}
+              onChange={validate}
+              onFocus={setNickInputError.bind(null, { error: false, msg: '', touched: false })}
+              onBlur={handleBlur.bind(null, setNickInputError)}
+            />
+            <p className="text-red-600">{nickInputError.msg}</p>
+            <LoginPageInput
+              inputConfig={{ type: 'password' }}
+              style={`mt-3 ${passInputError.error ? 'border-red-500' : ''}`}
+              ref={passwordInput}
+              onChange={validate}
+              onFocus={setPassInputError.bind(null, { error: false, msg: '', touched: false })}
+              onBlur={handleBlur.bind(null, setPassInputError)}
+            />
+            <p className="text-red-600">{passInputError.msg}</p>
             <button
-              className={`${actionType === 'login' ? 'bg-blue-600 hover:bg-blue-500' : 'bg-purple-500 hover:bg-purple-400'} py-2 px-4 mt-2 rounded-md w-full text-white duration-300`}
+              className={`${
+                actionType === 'login' ? 'bg-blue-600 hover:bg-blue-500' : 'bg-purple-500 hover:bg-purple-400'
+              } py-2 px-4 mt-2 rounded-md w-full text-white duration-300`}
               type="submit"
               onClick={submitHandler}
             >
