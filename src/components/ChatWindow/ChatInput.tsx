@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { useRef } from 'react';
 import { createConversationAnSendMessageOnServer, sendMessageOnServer } from '@/store/actions/currentConversationThunk';
-import { Conversation, Message } from '../../types/types';
+import { Message } from '../../types/types';
 import { v4 as uuid } from 'uuid';
 import { socket } from '@/lib/socket/socketInitializer';
 
@@ -66,9 +66,11 @@ const ChatInput = () => {
     <section className="chat-input w-2/3 flex justify-end mb-2 items-center max-sm:w-5/6">
       <div className="w-full h-full bg-white max-h-96 rounded-lg flex justify-center shadow-2xl dark:bg-neutral-800" onClick={()=>inputRef.current?.focus()}>
         <div
-          className="h-auto inline-block outline-none overflow-hidden"
+          className="h-auto inline-block outline-none overflow-hidden whitespace-pre-line"
           style={{ width: '90%', minHeight: '48px', maxHeight: '24rem' }}
-          contentEditable="true"
+          // Firefox does not support 'plaintext-only' value, which is needed
+          // @ts-ignore
+          contentEditable={`${navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ? true : 'plaintext-only'}`}
           onKeyDown={handleSendMessageFromKeyboard}
           ref={inputRef}
         ></div>
