@@ -9,6 +9,8 @@ import { Message } from '../../types/types';
 import { v4 as uuid } from 'uuid';
 import { socket } from '@/lib/socket/socketInitializer';
 
+const MAX_INPUT_LENGHT = 800;
+
 const ChatInput = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputRef = useRef<HTMLDivElement>(null);
@@ -55,6 +57,14 @@ const ChatInput = () => {
       // ASYNC SENDING
       sendMessage();
     }
+    if (inputRef.current && inputRef.current.textContent)
+    if (inputRef.current.textContent?.length >= MAX_INPUT_LENGHT && e.keyCode != 8 && // allow backspace & arrows
+      e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && 
+      e.keyCode != 40 ) {
+
+        if (e.keyCode == 65 && e.ctrlKey || e.keyCode == 67 && e.ctrlKey) return; // allow ctrl + c / ctrl + v
+      e.preventDefault()
+    }
   };
   const handleSendMessageFromButton = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -71,6 +81,7 @@ const ChatInput = () => {
           // Firefox does not support 'plaintext-only' value, which is needed
           // @ts-ignore
           contentEditable={`${navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ? true : 'plaintext-only'}`}
+          maxlength="100"
           onKeyDown={handleSendMessageFromKeyboard}
           ref={inputRef}
         ></div>
