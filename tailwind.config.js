@@ -3,9 +3,12 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      backgroundImage: {
-        // 'doodle-pattern': "url('public/star-doodle-bg.png')",
+       height: {
+        screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
       },
+      backgroundColor: {
+        mango: 'rgba(255,193,7, 0.95)'
+      }
     },
   }
 };

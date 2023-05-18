@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface DialogueItemProps {
   conversation: Conversation;
+  active:boolean;
 }
 
 function useWindowSize() {
@@ -50,10 +51,10 @@ const DialogueItem = (props: DialogueItemProps) => {
     dispatch(setAsCurrentConversation({ ...props.conversation, socketID: targetUser?.socketID }));
     dispatch(setIsMenuOpen(false));
   }
-
+  console.log(props.active);
   return (
     <div
-      className="bg-slate-50 h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300 dark:bg-neutral-800 dark:border-2 dark:border-neutral-700"
+      className={`h-20 mr-2 ml-2 mb-2 rounded-xl flex items-center duration-300 dark:border-2 dark:border-neutral-700 ${props.active ? `bg-mango dark:bg-neutral-600` : 'bg-slate-50 dark:bg-neutral-800'}`}
       onClick={handleClick}
     >
       <div className={`relative duration-300 ${targetUser?.socketID && 'after:absolute after:w-2 after:h-2 after:rounded-full after:bg-green-500 after:top-1 after:right-0'}`}>

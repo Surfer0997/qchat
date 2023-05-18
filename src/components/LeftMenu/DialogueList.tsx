@@ -10,6 +10,7 @@ const DialogueList = () => {
   const { conversations, loading } = useSelector((state: RootState) => state.userConversations);
   const conversationsToDisplay = [...conversations];
   const userId = useSelector((state: RootState) => state.user.data._id);
+  const currentConvId = useSelector((state:RootState)=>state.currentConversation.conversation._id)
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (userId) {
@@ -27,7 +28,7 @@ const DialogueList = () => {
       {conversationsToDisplay[0]
         ? conversationsToDisplay
             .sort((a, b) => b.order - a.order)
-            .map(conversation => <DialogueItem key={conversation._id} conversation={conversation} />)
+            .map(conversation => <DialogueItem key={conversation._id} conversation={conversation} active={currentConvId === conversation._id}/>)
         : null}
     </div>
   );
